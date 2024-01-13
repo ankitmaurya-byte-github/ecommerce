@@ -17,10 +17,11 @@ module.exports = {
  }),
  getAllProduct: catchAsyncErroe(async (req, res, next) => {
   // return next(new ErrorHandler(404,"alert ho jao"))
-  console.log(req.query);
-  const dataPerPage = 8
+  const dataPerPage = 2
   let data = new apiFeature(productModel.find(), req.query).search().filter()
-  const totaldoc = await productModel.countDocuments()
+
+  let totaldoc = await productModel.countDocuments()
+
   if (!data) {
    return next(new ErrorHandler(404, "product not found"))
   }
@@ -29,8 +30,9 @@ module.exports = {
   product = await data.product
   res.status(200).json({
    success: true,
-   data: product,
+   product,
    totaldoc,
+   dataPerPage
   });
  }),
  updateProduct: catchAsyncErroe(async (req, res) => {

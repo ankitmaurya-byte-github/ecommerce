@@ -16,11 +16,11 @@ function Home() {
  const alert = useAlert()
  useEffect(() => {
   if (error) {
-   return alert.error(error.message)
+   alert.error(error.message)
   }
   dispatch(getProduct())
  }, [dispatch, error, alert])
-
+ console.log(products);
  return (
   <Fragment>
    <MetaData />

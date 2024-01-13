@@ -26,6 +26,7 @@ function ProductCards({ product }) {
    </div>
    <span>RS.{product.price}</span>
   </Link>
+
  )
 }
 

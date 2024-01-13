@@ -11,6 +11,7 @@
 .products {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   margin: 5vmax auto;
   width: 80vw;
   a {
@@ -64,6 +65,51 @@
       padding: 0.5vmax;
       @include md {
         font-size: 1.5vmax;
+      }
+    }
+  }
+}
+.paginationBox {
+  display: flex;
+  justify-content: center;
+  margin: 6vmax;
+  .pagination {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+
+    .page-item {
+      background-color: rgb(255, 255, 255);
+      list-style: none;
+      border: 1px solid rgba(0, 0, 0, 0.178);
+      padding: 1vmax 1.5vmax;
+      transition: all 0.3s;
+      cursor: pointer;
+      &:first-child {
+        border-radius: 5px 0 0 5px;
+      }
+      &:last-child {
+        border-radius: 5px 0 0 5px;
+      }
+
+      .page-link {
+        text-decoration: none;
+        font: 300 2.5vh "Roboto";
+        color: rgb(80, 80, 80);
+        transition: all 0.3s;
+      }
+      &:hover {
+        background-color: rgb(230, 230, 230);
+        .page-link {
+          color: rgb(0, 0, 0);
+        }
+      }
+    }
+
+    .pageItemActive {
+      background-color: tomato;
+      .pageLinkActive {
+        color: white;
       }
     }
   }

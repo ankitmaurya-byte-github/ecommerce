@@ -7,11 +7,11 @@ function productReducers(state = { products: [] }, action) {
     ...state
    };
   case ALL_PRODUCT_SUCCESS:
-   console.log(action.payload.data);
    return {
     loading: false,
-    products: action.payload.data,
-    totalDoc: action.payload.data.length
+    products: action.payload.product,
+    totalDoc: action.payload.totaldoc,
+    dataPerPage: action.payload.dataPerPage
    }
   case ALL_PRODUCT_FAIL:
    return {

@@ -1,14 +1,16 @@
 import { ALL_PRODUCT_FAIL, ALL_PRODUCT_SUCCESS, ALL_PRODUCT_REQUEST, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, CLEAR_ERRORS } from "../constant/productConstants";
 import axios from 'axios'
-export const getProduct = (keyword = "") => async (dispatch) => {
+export const getProduct = (keyword = "", currentpage = 1) => async (dispatch) => {
  try {
   dispatch({
    type: ALL_PRODUCT_REQUEST,
   })
-  const { data } = await axios.get(`app/v1/products?keyword=${keyword}`)
+  const getdata = await axios.get(`/app/v1/products?keyword=${keyword}&page=${currentpage}`)
+  const { data } = getdata
   dispatch({
    type: ALL_PRODUCT_SUCCESS,
-   payload: data
+   payload: data,
+
   })
  } catch (err) {
   dispatch({
