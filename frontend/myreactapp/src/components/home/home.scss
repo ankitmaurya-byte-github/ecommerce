@@ -62,14 +62,16 @@
 .container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   margin: 5vmax auto;
-  width: 80vw;
+  width: 90vw;
   a {
     border: 2px solid rgb(57, 61, 64, 0.6);
     display: flex;
     text-decoration: none;
     flex-direction: column;
-    width: 20vmax;
+    width: 18vmax;
+    height: 25vmax;
     margin: 2vmax;
     color: rgb(57, 50, 36);
     transition: all 0.5s ease;

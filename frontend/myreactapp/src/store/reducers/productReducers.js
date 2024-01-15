@@ -11,7 +11,8 @@ function productReducers(state = { products: [] }, action) {
     loading: false,
     products: action.payload.product,
     totalDoc: action.payload.totaldoc,
-    dataPerPage: action.payload.dataPerPage
+    dataPerPage: action.payload.dataPerPage,
+    filterProductCount: action.payload.filterProductCount
    }
   case ALL_PRODUCT_FAIL:
    return {
@@ -28,7 +29,7 @@ function productReducers(state = { products: [] }, action) {
    return state
  }
 }
-function productDetailReducer(state = { products: {} }, action) {
+function productDetailReducer(state = { product: {} }, action) {
  switch (action.type) {
   case PRODUCT_DETAIL_REQUEST:
    return {
@@ -38,7 +39,7 @@ function productDetailReducer(state = { products: {} }, action) {
   case PRODUCT_DETAIL_SUCCESS:
    return {
     loading: false,
-    products: action.payload.data,
+    product: action.payload.data,
    }
   case PRODUCT_DETAIL_FAIL:
    return {

@@ -17,7 +17,7 @@ module.exports = {
  }),
  getAllProduct: catchAsyncErroe(async (req, res, next) => {
   // return next(new ErrorHandler(404,"alert ho jao"))
-  const dataPerPage = 2
+  const dataPerPage = 6
   let data = new apiFeature(productModel.find(), req.query).search().filter()
 
   let totaldoc = await productModel.countDocuments()
@@ -26,13 +26,15 @@ module.exports = {
    return next(new ErrorHandler(404, "product not found"))
   }
   let product = await data.product
+  let filterProductCount = product.length;
   data = data.pagination(dataPerPage)
   product = await data.product
   res.status(200).json({
    success: true,
    product,
    totaldoc,
-   dataPerPage
+   dataPerPage,
+   filterProductCount
   });
  }),
  updateProduct: catchAsyncErroe(async (req, res) => {

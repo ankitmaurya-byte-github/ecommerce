@@ -10,6 +10,7 @@ import Home from './components/home/Home';
 import Products from './components/product/Products';
 import Search from './components/product/search/Search';
 function App() {
+
  useEffect(() => {
   webfont.load({
    google: {

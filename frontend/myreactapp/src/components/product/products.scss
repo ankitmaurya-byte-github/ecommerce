@@ -13,13 +13,15 @@
   flex-wrap: wrap;
   justify-content: center;
   margin: 5vmax auto;
+  margin-left: 18vw;
   width: 80vw;
   a {
     border: 2px solid rgb(57, 61, 64, 0.6);
     display: flex;
     text-decoration: none;
     flex-direction: column;
-    width: 20vmax;
+    width: 18vmax;
+    height: 25vmax;
     margin: 2vmax;
     color: rgb(57, 50, 36);
     transition: all 0.5s ease;
@@ -67,6 +69,50 @@
         font-size: 1.5vmax;
       }
     }
+  }
+}
+.filterbox {
+  box-sizing: border-box;
+  background-color: rgb(224, 224, 224, 0.5);
+  padding: 2vmax;
+  width: 20vw;
+  position: absolute;
+  top: 26vh;
+  left: 3vw;
+  p > svg {
+    margin: auto 0.3vw;
+  }
+  .catogoriesList {
+    list-style: none;
+    font: 300 0.8rem Roboto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vh;
+    padding: 0;
+    cursor: pointer;
+    li {
+      padding: 1vh;
+    }
+    .notselected {
+      transition: all 0.4s ease;
+      background: wheat;
+      border-radius: 5px;
+      &:hover {
+        background: rgb(90, 175, 255);
+        transition: all 0.4s ease;
+      }
+    }
+    .selected {
+      transition: all 0.4s ease;
+      border-radius: 10px;
+      color: white;
+      background: rgb(38, 76, 112);
+    }
+  }
+
+  p {
+    margin: 1vh 0;
   }
 }
 .paginationBox {

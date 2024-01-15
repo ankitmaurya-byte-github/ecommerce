@@ -15,6 +15,18 @@ function Home() {
  const dispatch = useDispatch();
  const alert = useAlert()
  useEffect(() => {
+  const scrollToTop = () => {
+   console.log("jhu");
+   window.scrollTo({
+    top: 0,
+    // behavior: 'smooth' // Optional: Adds smooth scrolling animation
+   });
+  };
+
+  // Scroll to top on component mount or page reload
+  scrollToTop();
+ }, []);
+ useEffect(() => {
   if (error) {
    alert.error(error.message)
   }
