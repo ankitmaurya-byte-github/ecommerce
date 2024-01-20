@@ -7,7 +7,11 @@ const router = require("./routes/routes.js")
 const userRoute = require("./routes/userRoute.js")
 const orderRoute = require("./routes/orderRoutes.js")
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors());
+app.use(fileUpload())
 app.use(cookieParser());
 app.use(express.json())
 app.use('/app/v1', router)

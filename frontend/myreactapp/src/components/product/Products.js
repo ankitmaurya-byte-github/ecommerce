@@ -6,6 +6,7 @@ import Pagination from "react-js-pagination";
 import { useAlert } from 'react-alert';
 import Box from '@mui/material/Box';
 import { clearError } from '../../store/action/producAction';
+import MetaData from '../home/MetaData';
 import ReactStars from "react-rating-stars-component";
 import { getProduct } from '../../store/action/producAction';
 import { TbCategoryFilled } from "react-icons/tb";
@@ -27,7 +28,29 @@ function Products() {
  const [currentpage, setcurrentpage] = useState(1)
  const [slideValue1, setSlideValue1] = useState([500, 1500])
  const [catogory, setCatogory] = useState([])
- const [rating, setRating] = useState(3)
+ const [rating, setRating] = useState(0)
+
+ // handlefunction
+
+ const handelPageChange = (e) => {
+  setcurrentpage(e)
+ }
+ const handelRatingChange = (ratingchange) => {
+  console.log(ratingchange);
+  setRating(ratingchange)
+ }
+ const handleChange1 = (event, newValue, activeThumb) => {
+  if (!Array.isArray(newValue)) {
+   return;
+  }
+
+  if (activeThumb === 0) {
+   setSlideValue1([Math.min(newValue[0], slideValue1[1] - minDistance), slideValue1[1]]);
+  } else {
+   setSlideValue1([slideValue1[0], Math.max(newValue[1], slideValue1[0] + minDistance)]);
+  }
+ };
+
  //variabledeclare
  const minDistance = 100;
  const categories = [
@@ -42,12 +65,9 @@ function Products() {
  const option = {
   edit: true,
   count: 5,
-  onChang: (e) => {
-   console.log(e);
-   // setRating(e)
-  },
+  onChange: handelRatingChange,
   size: 30,
-  value: 4,
+  value: rating,
   activeColor: "#ffd700"
  }
  const [catogerySelected, setCatogerySelected] = useState(Array(categories.length).fill(false))
@@ -71,26 +91,9 @@ function Products() {
   dispatch(getProduct(params.keyword, currentpage, slideValue1, rating, catogory))
  }, [error, catogory, rating, dispatch, currentpage, slideValue1, alert, params])
 
- // handlefunction
 
- const handelPageChange = (e) => {
-  setcurrentpage(e)
- }
-
- const handleChange1 = (event, newValue, activeThumb) => {
-  if (!Array.isArray(newValue)) {
-   return;
-  }
-
-  if (activeThumb === 0) {
-   setSlideValue1([Math.min(newValue[0], slideValue1[1] - minDistance), slideValue1[1]]);
-  } else {
-   setSlideValue1([slideValue1[0], Math.max(newValue[1], slideValue1[0] + minDistance)]);
-  }
- };
 
  //logging
- console.log(catogory);
 
 
  // rendercomponents
@@ -102,14 +105,16 @@ function Products() {
    {/* body */}
    {loading ? <Loader /> :
     <Fragment>
+     <MetaData title={"Products"} />
      {/* products */}
-     <div className="products">
+
+     <div className={`products ${params.keyword ? "" : "nomargin"}`}>
       {products && products.map((data, i) => {
        return <ProductCards product={data} key={i} />
       })}
      </div>
      {/* filter */}
-     <div className="filterbox">
+     {params.keyword ? <div className="filterbox">
       <Typography><IoMdPricetags />Price</Typography>
       <Slider
        getAriaLabel={() => 'Minimum distance'}
@@ -145,7 +150,7 @@ function Products() {
       </ul>
       <fieldset><legend><Typography>Above Rating</Typography><ReactStars  {...option} /></legend></fieldset>
 
-     </div>
+     </div> : ""}
      {filterProductCount > dataPerPage ?
       <div className="paginationBox">
        <Pagination
@@ -164,6 +169,7 @@ function Products() {
         activeLinkClass="pageLinkActive"
        />
       </div> : ""}
+
     </Fragment>}
   </Fragment>
  )

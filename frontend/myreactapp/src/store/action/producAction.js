@@ -10,10 +10,10 @@ export const getProduct = (keyword = "", currentpage = 1, slideValue1 = [0, 2000
 
 
   if (catogory.length === 0) {
-   link = `/app/v1/products?keyword=${keyword}&page=${currentpage}&price[gte]=${slideValue1[0]}&price[lte]=${slideValue1[1]}&ratings[gte]=${0}`
+   link = `/app/v1/products?keyword=${keyword}&page=${currentpage}&price[gte]=${slideValue1[0]}&price[lte]=${slideValue1[1]}&ratings[gte]=${rating}`
 
   } else {
-   link = `/app/v1/products?keyword=${keyword}&page=${currentpage}&price[gte]=${slideValue1[0]}&price[lte]=${slideValue1[1]}&ratings[gte]=${0}&category[in]=${catogory}`
+   link = `/app/v1/products?keyword=${keyword}&page=${currentpage}&price[gte]=${slideValue1[0]}&price[lte]=${slideValue1[1]}&ratings[gte]=${rating}&category[in]=${catogory}`
   }
   const { data } = await axios.get(link)
   dispatch({

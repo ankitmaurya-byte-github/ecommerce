@@ -35,7 +35,7 @@ function Home() {
  console.log(products);
  return (
   <Fragment>
-   <MetaData />
+   <MetaData title={'Ecommerce'} />
    <div className="banner">
     <h2>
      Welcome

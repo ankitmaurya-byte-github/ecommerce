@@ -24,7 +24,7 @@ class apiFeature {
   })
   let str = JSON.stringify(queryCopy)
   str = str.replace(/\b(gt|gte|in|lt|lte)\b/g, (key) => `$${key}`)
-  console.log(this.query);
+  console.log(this.query);//here i am getting string array
   this.product = this.product.find(JSON.parse(str))
   return this
  }

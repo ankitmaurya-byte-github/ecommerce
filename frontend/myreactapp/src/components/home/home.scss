@@ -1,123 +1,143 @@
 @import "../../mixin.scss";
 
 .banner {
-  height: 100vmin;
-  background-image: linear-gradient(
-    to right,
-    rgb(77, 77, 156),
-    rgb(184, 18, 206)
-  );
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: rgb(255, 255, 255);
-  h2 {
-    margin: 5vmax;
-    font: 600 2.5vmax "Roboto";
-  }
-  p {
-    font: 300 2vmax "Lucida Sans";
-  }
-  a {
-    button {
-      margin: 5vmax;
-      border: 0;
-      background-color: white;
-      border: 1px solid wheat;
-      cursor: pointer;
-      width: 9vmax;
-      padding: 1vmax;
-      font: 500 2vmax "Roboto";
-      transition: all 0.5s ease;
-      &:hover {
-        background-color: transparent;
-        color: white;
-      }
-      &:after {
-        content: "";
-        background-color: white;
-        height: 100vmin;
-        width: 100vw;
-        // opacity: .5;
-        position: absolute;
-        top: 0;
-        left: 0;
-        clip-path: polygon(0 91%, 100% 74%, 100% 100%, 0% 100%);
-      }
-    }
-  }
-}
-.homeheading {
-  text-align: center;
-  border-bottom: 1px solid black;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  width: 20vmax;
-  font-size: 2.5vmax;
-  padding: 1vmax;
-  margin: 5vmax auto;
-  padding: 1vmax;
-  color: rgb(107, 33, 107);
-}
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 5vmax auto;
-  width: 90vw;
-  a {
-    border: 2px solid rgb(57, 61, 64, 0.6);
-    display: flex;
-    text-decoration: none;
-    flex-direction: column;
-    width: 18vmax;
-    height: 25vmax;
-    margin: 2vmax;
-    color: rgb(57, 50, 36);
-    transition: all 0.5s ease;
-    padding-bottom: 0.5vmax;
-    &:hover {
-      box-shadow: 0 0 10px grey;
+ height: 100vmin;
+ background-image: linear-gradient(to right,
+   rgb(77, 77, 156),
+   rgb(184, 18, 206));
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ color: rgb(255, 255, 255);
 
-      transform: translate(0.5vmax, -0.5vmax);
-    }
-    img {
-      width: 100%;
-      height: 25vmax;
-      object-fit: cover;
-      object-position: center;
-    }
-    > p {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 1.5vmax;
-      margin: 1vmax 0.5vmax;
-      margin-bottom: 0;
-      @include md {
-        font-size: 2vmax;
-      }
-    }
-    > div {
-      display: flex;
-      margin: 0.5vmax;
-      justify-content: flex-start;
-      > span {
-        margin: 0.5vmax;
-        font: 300 1vmax "Roboto";
-      }
-      @include md {
-        margin: 0;
-        display: block;
-      }
-    }
-    > span {
-      color: tomato;
-      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-        sans-serif;
-      margin: 0.5vmax;
-      padding: 0.5vmax;
-      @include md {
-        font-size: 1.5vmax;
-      }
-    }
+ h2 {
+  margin: 5vmax;
+  font: 600 2.5vmax "Roboto";
+ }
+
+ p {
+  font: 300 2vmax "Lucida Sans";
+ }
+
+ a {
+  button {
+   margin: 5vmax;
+   border: 0;
+   color: black;
+   background-color: white;
+   border: 1px solid wheat;
+   cursor: pointer;
+   width: 9vmax;
+   padding: 1vmax;
+   font: 500 2vh "Roboto";
+   transition: all 0.5s ease;
+
+   &:hover {
+    background-color: transparent;
+    color: white;
+   }
+
+   &:after {
+    content: "";
+    background-color: white;
+    height: 100vmin;
+    width: 100vw;
+    // opacity: .5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    clip-path: polygon(0 91%, 100% 74%, 100% 100%, 0% 100%);
+   }
   }
+ }
+}
+
+.homeheading {
+ text-align: center;
+ border-bottom: 1px solid black;
+ font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+ width: 20vmax;
+ font-size: 2.5vmax;
+ padding: 1vmax;
+ margin: 5vmax auto;
+ padding: 1vmax;
+ color: rgb(107, 33, 107);
+}
+
+.container {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ margin: 5vmax auto;
+ width: 90vw;
+
+ a {
+  border: 2px solid rgb(57, 61, 64, 0.6);
+  display: flex;
+  text-decoration: none;
+  flex-direction: column;
+  width: 21vmax;
+  height: 29vmax;
+  margin: 1.5vh;
+  color: rgb(57, 50, 36, 0.3);
+  transition: all 0.5s ease;
+  padding-bottom: 0.5vmax;
+
+  &:hover {
+   box-shadow: 0 0 10px grey;
+
+   transform: translate(0.5vmax, -0.5vmax);
+  }
+
+  img {
+   width: 100%;
+   height: 25vmax;
+   overflow: hidden;
+   object-fit: cover;
+   object-position: center;
+  }
+
+  >p {
+   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+   font: 600 1em large;
+   color: black;
+   margin: 1vh 1vh;
+   margin-bottom: 0;
+   padding: 0 1vh;
+   font: 600 1em Tahoma;
+
+   @include md {
+    font-size: 2vmax;
+   }
+  }
+
+  >div {
+   display: flex;
+   margin: 0 1.5vh;
+   justify-content: flex-start;
+
+   >span {
+    margin: 0.5vmax;
+    font: 300 1vmax "Roboto";
+   }
+
+   @include md {
+    margin: 2vh;
+    display: block;
+   }
+  }
+
+  >span {
+   color: tomato;
+   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+    sans-serif;
+   margin: 0 0.5vmax;
+   padding: 0 0.5vmax;
+
+   @include md {
+    font-size: 1.5vmax;
+   }
+  }
+ }
 }

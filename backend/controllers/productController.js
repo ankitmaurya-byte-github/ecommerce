@@ -3,9 +3,22 @@ const productModel = require("../models/product_model")
 const ErrorHandler = require("../utils/errorhandler")
 const usermodel = require("../models/product_model")
 const apiFeature = require("../utils/apiFeature")
+
+
+// async function deleteAllProducts() {
+//  try {
+//   const result = await productModel.deleteMany({});
+//   console.log(`${result.deletedCount} documents deleted.`);
+//  } catch (error) {
+//   console.error('Error deleting documents:', error.message);
+//  }
+// }
+// deleteAllProducts()
+
+
 module.exports = {
  creatProduct: catchAsyncErroe(async (req, res) => {
-  req.body.user = req.user.id
+  // req.body.user = req.user.id
   const data = await productModel.create(req.body)
   if (!data) {
    return next(new ErrorHandler(404, "product failed to create"))
@@ -17,7 +30,7 @@ module.exports = {
  }),
  getAllProduct: catchAsyncErroe(async (req, res, next) => {
   // return next(new ErrorHandler(404,"alert ho jao"))
-  const dataPerPage = 6
+  const dataPerPage = 12
   let data = new apiFeature(productModel.find(), req.query).search().filter()
 
   let totaldoc = await productModel.countDocuments()
