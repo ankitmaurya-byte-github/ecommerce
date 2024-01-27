@@ -1,16 +1,29 @@
 const errorhandler = require('../utils/errorhandler');
 const usermodel = require('../models/user_model');
+
 const catchAsyncErroe = require('../middlewares/catchAsyncErroe');
 const cloudinary = require('cloudinary');
 const crypto = require('crypto');
 const sendTokens = require('../utils/sendtoken');
 const sendEmail = require("../utils/sendEmail.js")
+
 exports.registerUser = catchAsyncErroe(async (req, res, next) => {
- const mycloud = cloudinary.uploader.upload(,
-  { public_id: "olympic_flag" });
+
+ const mycloud = await cloudinary.uploader.upload(req.body.avatar,
+  {
+   folder: 'photo',
+   width: 150,
+   crop: 'scale'
+  });
+ if (!mycloud) {
+  console.log("Dhfhdhd");
+  return res.status(500).json({
+   message: "fail hogaya bhai"
+  })
+ }
  const { email, password, name } = req.body
  const searchuser = await usermodel.findOne({ email })
- if (searchuser) {
+ if (!!searchuser) {
   return next(new errorhandler(404, "email already exists tyr with diffrent email"))
 
  }
@@ -19,8 +32,8 @@ exports.registerUser = catchAsyncErroe(async (req, res, next) => {
   password,
   name,
   avatar: {
-   post_id: "this is post id",
-   post_url: "this is post url",
+   post_id: mycloud.public_id,
+   post_url: mycloud.secure_url,
   }
  })
  sendTokens(user, 200, res)
@@ -111,9 +124,11 @@ exports.tryA = async (req, res) => {
 }
 exports.getUserDetail = catchAsyncErroe(
  async (req, res, next) => {
-  const user = await usermodel.findOne(req.user.id)
+  const user = await usermodel.findOne({ _id: req.user.id })
+  console.log("getuserDetail");
   res.status(200).json({
    success: true,
+   isAuthenticated: true,
    user
   })
  }

@@ -1,4 +1,4 @@
-const cloudinary = require('cloudinary');
+const cloudinary = require('cloudinary').v2;
 app = require('./app')
 dotenv = require("dotenv")
 connectdatabase = require("./config/database")

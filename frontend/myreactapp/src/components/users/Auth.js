@@ -5,8 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { loginUser, registerUser } from '../../store/action/userAction'
-import avatar from '../../images/avatar.png'
-
+import defaultAvatar from '../../images/avatar.png'
 import { clearError } from '../../store/action/producAction';
 import { useAlert } from 'react-alert'
 import Loader from '../layout/loader/Loader'
@@ -14,33 +13,57 @@ function Auth() {
  const alert = useAlert()
  const [swipe, setSwipe] = useState("")
  const { loading, error, email, name, role, avatar } = useSelector(state => state.userData)
- const [selectedFile, setSelectedFile] = useState(null);
- const [userData, setUserData] = useState({ email: "", name: "", password: "" })
+ const [previewAvatar, setPreviewAvatar] = useState(defaultAvatar)
+ const [image, setimage] = useState('../../images/avatar.png')
+ const [userData, setUserData] = useState({ email: "", name: "", password: "", avatar: defaultAvatar })
  const dispatch = useDispatch()
  const navigate = useNavigate()
  useEffect(() => {
   if (error) {
-   alert.error(error)
+   if (error.message !== 'please login') {
+    alert.error(error.message)
+   }
    dispatch(clearError())
   }
-  console.log(email);
-  console.log(!!email === true);
+
+ }, [dispatch, error, alert, email, navigate])
+
+ const handleSinIn = () => {
+  console.log(userData);
+  dispatch(loginUser(userData))
   if (!!email) {
    console.log(email);
    navigate('/')
   }
- }, [dispatch, error, email, navigate])
- const handleSinIn = () => {
-  console.log(userData);
-  dispatch(loginUser(userData))
  }
  const handleSinUp = () => {
-  dispatch(registerUser(userData))
+  const formData = new FormData()
+  formData.append('avatar', userData.avatar)
+  formData.append('name', userData.name)
+  formData.append('email', userData.email)
+  formData.append('password', userData.password)
+  // const fileUrl = URL.createObjectURL(userData.avatar);
+  console.log(userData);
+  // dispatch(registerUser({ ...userData, avatar: fileUrl }))
+  dispatch(registerUser(formData))
+  if (!!email) {
+   console.log(email);
+   navigate('/')
+  }
  }
- const handleAvatarChange = (event) => {
-  const file = event.target.files[0]; // Get the selected file
-  setSelectedFile(file);
+ const handleAvatarChange = async (e) => {
+  const reader = new FileReader();
+  reader.onload = () => {
+   if (reader.readyState === 2) {
+    setUserData({ ...userData, avatar: reader.result });
+   }
+  };
 
+  reader.readAsDataURL(e.target.files[0]);
+  // setUserData({ ...userData, avatar: e.target.files[0] });
+  const file = URL.createObjectURL(e.target.files[0])
+
+  setPreviewAvatar(file)
   if (file) {
    console.log('Selected file:', file.name);
   }
@@ -58,7 +81,7 @@ function Auth() {
        <input type="password" value={userData.password} onChange={(e) => setUserData({ ...userData, password: e.target.value })} placeholder="Password" />
        <input type="file" onChange={handleAvatarChange} id="fileInput" name="fileInput" />
        <label htmlFor="fileInput" className={style.image}>
-        <img className={style.avatar} src={selectedFile ? selectedFile : 'https://w7.pngwing.com/pngs/99/557/png-transparent-computer-icons-avatar-avatar-angle-heroes-recruiter.png'} alt="" />
+        <img className={style.avatar} src={previewAvatar} alt="" />
         <span>Choose Avatar</span>
        </label>
 

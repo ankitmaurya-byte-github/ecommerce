@@ -12,12 +12,13 @@ function userReducers(state = { userData: {} }, action) {
   case USER_SUCCESS:
    return {
     loading: false,
-    ...action.payload.data.user
+    ...action.payload.data.user,
+    isAuthenticated: action.payload.data.isAuthenticated
    }
   case USER_FAIL:
    return {
     loading: false,
-    error: action.payload
+    error: action.payload.response.data
    }
   default:
    return state
