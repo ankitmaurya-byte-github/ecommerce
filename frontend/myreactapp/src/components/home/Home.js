@@ -32,6 +32,7 @@ function Home() {
   dispatch(getProduct())
  }, [dispatch, error, alert])
  console.log(products);
+
  return (
   <Fragment>
    <MetaData title={'Ecommerce'} />

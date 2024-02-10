@@ -1,6 +1,6 @@
 import {
  USER_REQUEST, USER_SUCCESS,
- USER_FAIL,
+ USER_FAIL, LOGOUT_USER,
 } from '../constant/userConst'
 
 function userReducers(state = { userData: {} }, action) {
@@ -15,7 +15,14 @@ function userReducers(state = { userData: {} }, action) {
     ...action.payload.data.user,
     isAuthenticated: action.payload.data.isAuthenticated
    }
+  case LOGOUT_USER:
+   return {
+    loading: false,
+    user: null,
+    isAuthenticated: false
+   }
   case USER_FAIL:
+   console.log(action.payload);
    return {
     loading: false,
     error: action.payload.response.data

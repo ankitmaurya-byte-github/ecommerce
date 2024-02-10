@@ -1,7 +1,7 @@
 import axios from "axios"
 import {
  USER_REQUEST, USER_SUCCESS,
- USER_FAIL,
+ USER_FAIL, LOGOUT_USER,
  USER_REGISTER_REQUEST
 } from '../constant/userConst'
 // import multer from 'multer'
@@ -13,7 +13,7 @@ export const loginUser = (userData) => async (dispatch) => {
 
   dispatch({ type: USER_REQUEST })
   const user = await axios.post(`/app/v1/login`, userData, config)
-  console.log(user);
+
   dispatch({ type: USER_SUCCESS, payload: user })
 
  } catch (err) {
@@ -57,6 +57,17 @@ export const registerUser = (userData) => async (dispatch) => {
   console.log(err);
   dispatch({ type: USER_FAIL, payload: err })
 
+ }
+
+}
+export const logoutUser = () => async (dispatch) => {
+ try {
+  dispatch({ type: USER_REQUEST })
+  await axios.post(`/app/v1/logout`)
+  dispatch({ type: LOGOUT_USER })
+ } catch (err) {
+  console.log(err);
+  dispatch({ type: USER_FAIL, payload: err })
  }
 
 }

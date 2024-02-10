@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import webfont from 'webfontloader'
 import Footer from './components/layout/footer/Footer';
 import ProductDetails from './components/product/ProductDetails';
+import { useNavigate } from 'react-router-dom';
 import Home from './components/home/Home';
 import Products from './components/product/Products';
 import Search from './components/product/search/Search';
@@ -24,10 +25,12 @@ function App() {
   })
   dispatch(loadUser())
  }, [dispatch])
+
  return (
-  <Router>
+  <div>
    <Header />
-   {user.isAuthenticated && <UserOption user={user} />}
+   {/* {user.isAuthenticated && <UserOption user={user} />} */}
+   <UserOption user={user} />
    <Routes>
     <Route path='/' element={<Home />} />
     <Route exact path='/product/:id' element={<ProductDetails />} />
@@ -39,7 +42,7 @@ function App() {
     <Route path='/register' element={<Auth />} />
    </Routes>
    <Footer />
-  </Router>
+  </div>
  );
 }
 

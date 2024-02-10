@@ -14,10 +14,9 @@ module.exports = (err, req, res, next) => {
  if (err.name == "TokenExpiredError") {
   err = new errorhandler(404, "you jwt token has expired please try again ")
  }
- res.status(err.statuscode).json({
+ res.status(err.status).json({
   success: false,
-  statuscode: err.status,
-  message: err,
-  stack: err.stack
+  statusCode: err.status,
+  message: err.message,
  })
 }

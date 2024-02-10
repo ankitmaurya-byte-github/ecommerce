@@ -12,7 +12,8 @@ import Loader from '../layout/loader/Loader'
 function Auth() {
  const alert = useAlert()
  const [swipe, setSwipe] = useState("")
- const { loading, error, email, name, role, avatar } = useSelector(state => state.userData)
+ const [navigateToHome, setNavigateToHome] = useState(false)
+ const { loading, error, isAuthenticated, email, name, role, avatar } = useSelector(state => state.userData)
  const [previewAvatar, setPreviewAvatar] = useState(defaultAvatar)
  const [image, setimage] = useState('../../images/avatar.png')
  const [userData, setUserData] = useState({ email: "", name: "", password: "", avatar: defaultAvatar })
@@ -25,16 +26,19 @@ function Auth() {
    }
    dispatch(clearError())
   }
+  if (navigateToHome && isAuthenticated) {
+   setNavigateToHome(false)
+   console.log("fghfghf");
+   navigate('/')
+  }
 
- }, [dispatch, error, alert, email, navigate])
+ }, [dispatch, navigateToHome, error, alert, email, navigate])
 
  const handleSinIn = () => {
   console.log(userData);
   dispatch(loginUser(userData))
-  if (!!email) {
-   console.log(email);
-   navigate('/')
-  }
+  setNavigateToHome(true)
+
  }
  const handleSinUp = () => {
   const formData = new FormData()
@@ -46,10 +50,7 @@ function Auth() {
   console.log(userData);
   // dispatch(registerUser({ ...userData, avatar: fileUrl }))
   dispatch(registerUser(formData))
-  if (!!email) {
-   console.log(email);
-   navigate('/')
-  }
+  setNavigateToHome(true)
  }
  const handleAvatarChange = async (e) => {
   const reader = new FileReader();
