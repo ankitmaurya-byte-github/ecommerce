@@ -14,6 +14,7 @@ import { loadUser } from './store/action/userAction';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import UserOption from './components/layout/header/UserOption';
+import Profile from './components/users/Profile/Profile';
 function App() {
  const user = useSelector(state => state.userData)
  const dispatch = useDispatch()
@@ -40,6 +41,7 @@ function App() {
     <Route path='/login' element={<Auth />} />
     <Route path='/auth' element={<Auth />} />
     <Route path='/register' element={<Auth />} />
+    <Route path='/profile' element={<Profile />} />
    </Routes>
    <Footer />
   </div>
