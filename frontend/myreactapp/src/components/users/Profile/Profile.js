@@ -23,20 +23,21 @@ function Profile() {
     <MetaData title={`${name}'s profile`} />
     <div className={style.profileContainer}>
      <div className={style.image}>
+      <h1>My Profile</h1>
       <img src={avatar.post_url} alt="" />
       <Link to={'me/update'}>Edit Profile</Link>
      </div>
      <div className={style.details}>
       <div>
-       <h2>Name</h2>
+       <h1>Name</h1>
        <p>{name}</p>
       </div>
       <div>
-       <h2>Email</h2>
+       <h1>Email</h1>
        <p>{email}</p>
       </div>
       <div>
-       <h2>Joined on</h2>
+       <h1>Joined on</h1>
        <p>{createdAt}</p>
       </div>
       <div>
@@ -44,7 +45,6 @@ function Profile() {
        <Link to={'/password/update'}>change password</Link>
       </div>
      </div>
-     <div className={style.image}></div>
     </div>
    </Fragment>
    }

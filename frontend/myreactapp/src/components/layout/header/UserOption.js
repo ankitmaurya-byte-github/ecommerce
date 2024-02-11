@@ -59,10 +59,14 @@ export default function UserOption({ user }) {
  }, [])
  return (
   <SpeedDial
+   style={{
+    position: "fixed",
+    zIndex: 99,
+   }}
    ariaLabel="SpeedDial basic example"
    direction='down'
    sx={{ position: 'absolute', top: 16, right: 16 }}
-   icon={<img style={{
+   icon={< img style={{
     width: "56px", height: "56px", objectPosition: "center", objectFit: 'cover', borderRadius: '50%'
    }} src={user?.avatar?.post_url || image} alt='' />}
   >
