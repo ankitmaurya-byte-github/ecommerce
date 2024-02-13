@@ -71,3 +71,17 @@ export const logoutUser = () => async (dispatch) => {
  }
 
 }
+export const profileUpdate = (userData) => async (dispatch) => {
+ const config = {
+  'Content-Type': 'multipart/form-data',
+ }
+ try {
+  dispatch({ type: USER_REQUEST })
+  await axios.post(`/app/v1/profile/update`, userData, config)
+  dispatch({ type: USER_SUCCESS, payload: userData })
+ } catch (err) {
+  console.log(err);
+  dispatch({ type: USER_FAIL, payload: err })
+ }
+
+}

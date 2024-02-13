@@ -1,6 +1,6 @@
 import Header from './components/layout/header/Header';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import webfont from 'webfontloader'
 import Footer from './components/layout/footer/Footer';
@@ -15,6 +15,8 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import UserOption from './components/layout/header/UserOption';
 import Profile from './components/users/Profile/Profile';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import UpdateProfile from './components/users/updateProfile.js/UpdateProfile';
 function App() {
  const user = useSelector(state => state.userData)
  const dispatch = useDispatch()
@@ -30,8 +32,8 @@ function App() {
  return (
   <div>
    <Header />
-   {/* {user.isAuthenticated && <UserOption user={user} />} */}
-   <UserOption user={user} />
+   {user.isAuthenticated && <UserOption user={user} />}
+   {/* <UserOption user={user} /> */}
    <Routes>
     <Route path='/' element={<Home />} />
     <Route exact path='/product/:id' element={<ProductDetails />} />
@@ -41,11 +43,18 @@ function App() {
     <Route path='/login' element={<Auth />} />
     <Route path='/auth' element={<Auth />} />
     <Route path='/register' element={<Auth />} />
-    <Route path='/profile' element={<Profile />} />
+    <Route path='/profile/me/update' element={<UpdateProfile />} />
+    {user.isAuthenticated && <Route exact path='/profile' element={<Profile />} />}
    </Routes>
    <Footer />
   </div>
  );
 }
-
+function ProtectedRoutes() {
+ return (
+  <>
+   <ProtectedRoute path="/profile" element={<Profile />} />
+  </>
+ );
+}
 export default App;
