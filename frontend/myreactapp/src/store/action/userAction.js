@@ -2,7 +2,10 @@ import axios from "axios"
 import {
  USER_REQUEST, USER_SUCCESS,
  USER_FAIL, LOGOUT_USER,
- USER_REGISTER_REQUEST
+ USER_REGISTER_REQUEST,
+ UPDATE_PROFILE_REQUEST,
+ UPDATE_PROFILE_FAIL,
+ UPDATE_PROFILE_SUCCESS
 } from '../constant/userConst'
 // import multer from 'multer'
 export const loginUser = (userData) => async (dispatch) => {
@@ -76,12 +79,12 @@ export const profileUpdate = (userData) => async (dispatch) => {
   'Content-Type': 'multipart/form-data',
  }
  try {
-  dispatch({ type: USER_REQUEST })
-  await axios.post(`/app/v1/profile/update`, userData, config)
-  dispatch({ type: USER_SUCCESS, payload: userData })
+  dispatch({ type: UPDATE_PROFILE_REQUEST })
+  const data = await axios.post(`/app/v1/profile/update`, userData, config)
+  dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data })
  } catch (err) {
   console.log(err);
-  dispatch({ type: USER_FAIL, payload: err })
+  dispatch({ type: UPDATE_PROFILE_FAIL, payload: err })
  }
 
 }

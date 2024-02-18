@@ -155,30 +155,28 @@ exports.updatePassword = catchAsyncErroe(
 )
 exports.updateProfile = catchAsyncErroe(
  async (req, res, next) => {
-  let option = {}
-  if (req.body.avatar) {
-   const mycloud = await cloudinary.uploader.upload(req.body.avatar,
-    {
-     folder: 'photo',
-     width: 150,
-     crop: 'scale'
-    });
-   if (!mycloud) {
-    console.log("Dhfhdhd");
-    return res.status(500).json({
-     message: "fail hogaya bhai"
-    })
-   }
-   let options = {
-    name: req.body.name,
-    email: req.body.email,
-    avatar: {
-     post_id: mycloud.public_id,
-     post_url: mycloud.secure_url,
-    }
-   }
 
+  const mycloud = await cloudinary.uploader.upload(req.body.avatar,
+   {
+    folder: 'photo',
+    width: 150,
+    crop: 'scale'
+   });
+  if (!mycloud) {
+   console.log("Dhfhdhd");
+   return res.status(500).json({
+    message: "fail hogaya bhai"
+   })
   }
+  let options = {
+   name: req.body.name,
+   email: req.body.email,
+   avatar: {
+    post_id: mycloud.public_id,
+    post_url: mycloud.secure_url,
+   }
+  }
+
   const user = await usermodel.findByIdAndUpdate(req.user.id, options, {
    new: true,
    newValidator: true,
@@ -187,7 +185,6 @@ exports.updateProfile = catchAsyncErroe(
   res.status(200).json({
    success: true,
    message: "profile updated sucessfully",
-   user
   },)
  }
 )

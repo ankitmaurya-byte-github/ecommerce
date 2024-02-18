@@ -43,7 +43,7 @@ function App() {
     <Route path='/login' element={<Auth />} />
     <Route path='/auth' element={<Auth />} />
     <Route path='/register' element={<Auth />} />
-    <Route path='/profile/me/update' element={<UpdateProfile />} />
+    {user.isAuthenticated && <Route path='/profile/me/update' element={<UpdateProfile />} />}
     {user.isAuthenticated && <Route exact path='/profile' element={<Profile />} />}
    </Routes>
    <Footer />
