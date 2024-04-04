@@ -5,7 +5,7 @@ import image from '../../images/0nline-trends-2022.png'
 import ProductCards from './ProductCards';
 import MetaData from './MetaData';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProduct } from '../../store/action/producAction';
+import { clearError, getProduct } from '../../store/action/producAction';
 import Loader from '../layout/loader/Loader';
 import { useAlert } from 'react-alert';
 function Home() {
@@ -28,6 +28,7 @@ function Home() {
  useEffect(() => {
   if (error) {
    alert.error(error.message)
+   dispatch(clearError())
   }
   dispatch(getProduct())
  }, [dispatch, error, alert])
@@ -54,8 +55,6 @@ function Home() {
       return <ProductCards key={index} product={product} />
      })
     }
-
-
    </div>
   </Fragment>
  )

@@ -176,7 +176,7 @@ display: flex;
 	height: 100%;
 	overflow: hidden;
 	transition: transform .6s ease-in-out;
-	z-index: 100;
+	z-index: 80;
 }
 
 .container.rightpanelactive .overlaycontainer{

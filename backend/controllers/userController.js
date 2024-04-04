@@ -185,6 +185,7 @@ exports.updateProfile = catchAsyncErroe(
   res.status(200).json({
    success: true,
    message: "profile updated sucessfully",
+   user
   },)
  }
 )

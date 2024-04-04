@@ -3,6 +3,7 @@ module.exports = (err, req, res, next) => {
  err.statuscode = err.statuscode || 404
  console.log(err);
  err.message = err.message || "Invalid server err"
+
  if (err.name === "CastError") {
   const message = `resource not found .Invalid: ${err.message}`
   err = new errorhandler(404, message)

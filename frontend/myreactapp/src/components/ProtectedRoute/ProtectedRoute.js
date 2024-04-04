@@ -1,16 +1,17 @@
 import React, { Fragment } from 'react'
 import { useSelector } from 'react-redux'
-import { Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 import Profile from '../users/Profile/Profile'
-function ProtectedRoute({ element: Component, ...info }) {
- const { loading, name, avatar, email, createdAt, isAuthenticated } = useSelector(state => state.userData)
+import Auth from '../users/Auth'
+function ProtectedRoute({ user }) {
+ const { loading, isAuthenticated } = user
  return (
   <Fragment>
-   {!loading &&
-    (<Route {...info} render={(props) => {
+   {/* {!loading &&
+    (<Route render={(props) => {
      if (!isAuthenticated) {
       return <Navigate to="/login" />
      } else {
@@ -19,7 +20,13 @@ function ProtectedRoute({ element: Component, ...info }) {
 
     }
     } />)
+   } */}
+   {!loading &&
+    isAuthenticated ?
+    <Auth /> : <Outlet />
+
    }
+
 
   </Fragment>
  )

@@ -44,17 +44,24 @@ function App() {
     <Route path='/auth' element={<Auth />} />
     <Route path='/register' element={<Auth />} />
     {user.isAuthenticated && <Route path='/profile/me/update' element={<UpdateProfile />} />}
-    {user.isAuthenticated && <Route exact path='/profile' element={<Profile />} />}
+    <Route path='/profile' element={user.isAuthenticated ? <Profile /> : <NavigateAuth />} />
+
+    {/* <Route exact path='/profile' element={<ProtectedRoute user={user} />} ><Profile /></Route> */}
    </Routes>
    <Footer />
   </div>
  );
 }
-function ProtectedRoutes() {
- return (
-  <>
-   <ProtectedRoute path="/profile" element={<Profile />} />
-  </>
- );
+
+function NavigateAuth() {
+ return <Navigate to="/login" />
 }
+
+// function ProtectedRoutes() {
+//  return (
+//   <>
+//    <ProtectedRoute path="/profile" element={<Profile />} />
+//   </>
+//  );
+// }
 export default App;

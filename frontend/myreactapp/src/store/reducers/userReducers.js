@@ -6,7 +6,7 @@ import {
  UPDATE_PROFILE_SUCCESS
 } from '../constant/userConst'
 
-function userReducers(state = { userData: {} }, action) {
+function userReducers(state = { initialUserData: {} }, action) {
  switch (action.type) {
   case USER_REQUEST:
    return {
@@ -17,6 +17,19 @@ function userReducers(state = { userData: {} }, action) {
     loading: false,
     ...action.payload.data.user,
     isAuthenticated: action.payload.data.isAuthenticated
+   }
+  case UPDATE_PROFILE_REQUEST:
+
+   return {
+    ...state,
+    loading: true
+   }
+  case UPDATE_PROFILE_SUCCESS:
+   return {
+    ...state,
+    loading: false,
+    isUpdated: action.payload.data.success,
+    ...action.payload.data.user,
    }
   case LOGOUT_USER:
    return {
@@ -34,22 +47,26 @@ function userReducers(state = { userData: {} }, action) {
    return state
  }
 }
-function profileReducer(state = { userData: {} }, action) {
+function profileReducer(state = { initialProfileData: {} }, action) {
  switch (action.type) {
-  case UPDATE_PROFILE_REQUEST:
+  case "UPDATE_PROFILE_REQUESTK":
+
    return {
+    // ...state,
     loading: true
    }
-  case UPDATE_PROFILE_SUCCESS:
+  case "UPDATE_PROFILE_SUCCESSL":
    return {
+    // ...state,
     loading: false,
-    isUpdated: action.payload.data.sucess,
-
+    isUpdated: action.payload.data.success,
+    ...action.payload.data.user,
    }
 
   case UPDATE_PROFILE_FAIL:
    console.log(action.payload);
    return {
+    // ...state,
     loading: false,
     error: action.payload.response.data
    }

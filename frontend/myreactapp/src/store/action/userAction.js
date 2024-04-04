@@ -79,9 +79,12 @@ export const profileUpdate = (userData) => async (dispatch) => {
   'Content-Type': 'multipart/form-data',
  }
  try {
+
   dispatch({ type: UPDATE_PROFILE_REQUEST })
   const data = await axios.post(`/app/v1/profile/update`, userData, config)
+  console.log(data);
   dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data })
+  console.log("updated");
  } catch (err) {
   console.log(err);
   dispatch({ type: UPDATE_PROFILE_FAIL, payload: err })
