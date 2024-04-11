@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { clearError } from '../../store/action/producAction';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,7 +14,7 @@ function ProductDetails() {
  const { error, loading, product } = useSelector(state => state.productDetail)
  const { id } = useParams();
  const dispatch = useDispatch()
-
+ const [productCount, setProductCount] = useState(1)
 
  const option = {
   edit: true,
@@ -74,9 +74,9 @@ function ProductDetails() {
        <h1>${product.price}</h1>
        <div className="detailsBlock_c1">
         <div className="detailsBlock_c1a">
-         <button>-</button>
-         <input type='number' onChange={handleCountChange} value='1' />
-         <button>+</button>
+         <button onClick={() => productCount > 1 && setProductCount(productCount - 1)}>-</button>
+         <input type='text' onChange={handleCountChange} value={productCount} />
+         <button onClick={() => product.stock > productCount && setProductCount(productCount + 1)}>+</button>
         </div>
         <button>
          Add To Cart

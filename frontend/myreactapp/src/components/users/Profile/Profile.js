@@ -42,7 +42,7 @@ function Profile() {
       </div>
       <div>
        <Link to={'/orders'}>My orders</Link>
-       <Link to={'/password/update'}>change password</Link>
+       <Link to={'/password/me/update'}>change password</Link>
       </div>
      </div>
     </div>

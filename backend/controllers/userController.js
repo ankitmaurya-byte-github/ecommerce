@@ -65,19 +65,21 @@ exports.logoutUser = catchAsyncErroe(async (req, res, next) => {
  res.status(200).json({ success: true, message: "lodged out successfully" })
 })
 exports.forgetPassword = catchAsyncErroe(async (req, res, next) => {
+ console.log(req);
  const user = await usermodel.findOne({ email: req.body.email })
  if (!user) {
   return next(new errorhandler(404, "user not found"))
  }
- const token = user.sendResetToken()
+ const token = await user.sendResetToken()
  await user.save({ validateBeforeSave: false })
- console.log(user);
- const resetURL = `${req.protocol}://${req.get("host")}/api/v1/password/reset/${token}`
-
+ console.log(token);
+ // console.log(user);
+ const resetURL = `${req.protocol}:3000/password/reset/${token}`
+ console.log(resetURL);
  const message = `reset your password using this token \n\n${resetURL} \n\n if you have not requested this then please ignore it `
 
  try {
-  await sendEmail({
+  const datainfo = await sendEmail({
    email: user.email,
    subject: "password recovery",
    message
@@ -85,6 +87,8 @@ exports.forgetPassword = catchAsyncErroe(async (req, res, next) => {
   res.status(200).json({
    success: true,
    message: `email sent to ${user.email}successfully`,
+   userId: user._id
+   // datainfo
   })
  } catch (error) {
   user.resetPasswordToken = undefined
@@ -93,8 +97,12 @@ exports.forgetPassword = catchAsyncErroe(async (req, res, next) => {
   return next(new errorhandler("failed to send email", 404))
  }
 })
-exports.resetPassword = catchAsyncErroe(async (req, res, next) => {
- const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+exports.checkTokenValid = catchAsyncErroe(async (req, res, next) => {
+ console.log("req.body");
+ console.log(req.body);
+ console.log("req.body");
+ const hashedToken = crypto.createHash('sha256').update(req.body.token).digest('hex');
+ console.log("hashedToken");
  console.log(hashedToken);
 
  const user = await usermodel.findOne({
@@ -104,15 +112,19 @@ exports.resetPassword = catchAsyncErroe(async (req, res, next) => {
  if (!user) {
   return next(new errorhandler(404, "invalid token request"))
  }
- console.log(user.name);
- if (req.body.confirmPassword !== req.body.password) {
-  return next(new errorhandler(404, "password do not match"))
- }
- user.password = req.body.password
+ res.status(200).json({
+  isTokenValid: true,
+  userId: user._id
+ })
+ // console.log(user.name);
+ // if (req.body.confirmPassword !== req.body.password) {
+ //  return next(new errorhandler(404, "password do not match"))
+ // }
+ // user.password = req.body.password
  // user.resetPasswordExpires = undefined
  // user.resetPasswordToken = undefined
- await user.save()
- sendTokens(user, 200, res)
+ // await user.save()
+ // sendTokens(user, 200, res)
 
 })
 exports.tryA = async (req, res) => {
@@ -135,22 +147,37 @@ exports.getUserDetail = catchAsyncErroe(
 )
 exports.updatePassword = catchAsyncErroe(
  async (req, res, next) => {
-  if (req.body.password !== req.body.confirmPassword) {
-   return next(new errorhandler(404, "password dont match"))
+  // if (req.body.password !== req.body.confirmPassword) {
+  //  return next(new errorhandler(404, "password dont match"))
+  // };
+  console.log(req.body);
+  if (!req.body.directUpdate) {
+   const user = await usermodel.findOne(req.user._id).select("+password")
+   const password = req.body.password
+   const ismatched = await user.comparepassword(password)
+   console.log(password);
+   if (!ismatched) {
+    return next(new errorhandler(404, "incorrect old password"))
+   }
+   console.log("ismatched");
+   user.passsword = req.body.password
+   await user.save({ validateBeforeSave: false })
+   res.status(200).json({
+    success: true,
+    message: "password updated sucessfully"
+   })
+  } else {
+   console.log("direct update section run");
+   const user = await usermodel.findOne({ _id: req.body.userId })
+   user.passsword = req.body.password
+   user.resetPasswordExpires = undefined
+   user.resetPasswordToken = undefined
+   await user.save({ validateBeforeSave: false })
+   sendTokens(user, 200, res)
   }
-  const user = await usermodel.findOne(req.user._id).select("+password")
-  const password = req.body.oldPassword
-  const ismatched = await user.comparepassword(password)
-  if (!ismatched) {
-   return next(new errorhandler(404, "incorrect old password"))
-  }
-  user.passsword = req.body.password
-  await user.save()
 
-  res.status(200).json({
-   success: true,
-   message: "password updated sucessfully"
-  })
+
+
  }
 )
 exports.updateProfile = catchAsyncErroe(
@@ -176,7 +203,14 @@ exports.updateProfile = catchAsyncErroe(
     post_url: mycloud.secure_url,
    }
   }
-
+  try {
+   const result = await cloudinary.uploader.destroy(req.user.avatar.post_id);
+   console.log("Post deleted successfully:", result);
+   // Do something if the post is successfully deleted
+  } catch (error) {
+   console.error("Error deleting post:", error);
+   // Handle the error if the post deletion fails
+  }
   const user = await usermodel.findByIdAndUpdate(req.user.id, options, {
    new: true,
    newValidator: true,

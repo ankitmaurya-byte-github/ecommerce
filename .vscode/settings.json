@@ -14,5 +14,8 @@
     },
     "[json]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "errorLens.scrollbarHackEnabled": true,
+    "errorLens.statusBarColorsEnabled": true,
+    "console-ninja.outputMode": "In View"
 }

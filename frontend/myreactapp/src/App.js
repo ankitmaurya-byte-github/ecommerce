@@ -12,11 +12,17 @@ import Search from './components/product/search/Search';
 import Auth from './components/users/Auth';
 import { loadUser } from './store/action/userAction';
 import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { FaUser, FaUserAlt, FaLock } from 'react-icons/fa';
+
 import { useSelector } from 'react-redux';
 import UserOption from './components/layout/header/UserOption';
 import Profile from './components/users/Profile/Profile';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import UpdateProfile from './components/users/updateProfile.js/UpdateProfile';
+import UpdatePassword from './components/users/updatePassword/UpdatePassword';
+import ResetLink from './components/users/Profile/resetlink/ResetLink';
+import ResetPassword from './components/users/Profile/resetPassword/ResetPassword';
 function App() {
  const user = useSelector(state => state.userData)
  const dispatch = useDispatch()
@@ -31,9 +37,10 @@ function App() {
 
  return (
   <div>
+
    <Header />
    {user.isAuthenticated && <UserOption user={user} />}
-   {/* <UserOption user={user} /> */}
+   <UserOption user={user} />
    <Routes>
     <Route path='/' element={<Home />} />
     <Route exact path='/product/:id' element={<ProductDetails />} />
@@ -43,7 +50,10 @@ function App() {
     <Route path='/login' element={<Auth />} />
     <Route path='/auth' element={<Auth />} />
     <Route path='/register' element={<Auth />} />
+    <Route path='/password/reset/' element={<ResetLink />} />
+    <Route path='/password/reset/:token' element={<ResetPassword />} />
     {user.isAuthenticated && <Route path='/profile/me/update' element={<UpdateProfile />} />}
+    {user.isAuthenticated && <Route path='/password/me/update' element={<UpdatePassword />} />}
     <Route path='/profile' element={user.isAuthenticated ? <Profile /> : <NavigateAuth />} />
 
     {/* <Route exact path='/profile' element={<ProtectedRoute user={user} />} ><Profile /></Route> */}
@@ -57,11 +67,4 @@ function NavigateAuth() {
  return <Navigate to="/login" />
 }
 
-// function ProtectedRoutes() {
-//  return (
-//   <>
-//    <ProtectedRoute path="/profile" element={<Profile />} />
-//   </>
-//  );
-// }
 export default App;

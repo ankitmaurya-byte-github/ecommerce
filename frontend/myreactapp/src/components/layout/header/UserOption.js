@@ -35,6 +35,7 @@ export default function UserOption({ user }) {
  function logout() {
   dispatch(logoutUser());
   alert.success("Logout Successfully");
+  navigate('/login')
  }
  function login() {
   if (location.pathname !== '/login') {

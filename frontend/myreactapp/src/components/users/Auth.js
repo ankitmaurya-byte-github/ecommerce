@@ -95,7 +95,7 @@ function Auth() {
        <h1>Sign in</h1>
        <input type="email" value={userData.email} onChange={(e) => setUserData({ ...userData, email: e.target.value })} placeholder="Email" />
        <input type="password" value={userData.password} onChange={(e) => setUserData({ ...userData, password: e.target.value })} placeholder="Password" />
-       <a href="#">Forgot your password?</a>
+       <a href="/password/reset">Forgot your password?</a>
        <button onClick={handleSinIn}>Sign In</button>
       </form>
      </div>
