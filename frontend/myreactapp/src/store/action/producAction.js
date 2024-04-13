@@ -1,4 +1,4 @@
-import { ALL_PRODUCT_FAIL, ALL_PRODUCT_SUCCESS, ALL_PRODUCT_REQUEST, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, CLEAR_ERRORS } from "../constant/productConstants";
+import { ALL_PRODUCT_FAIL, ALL_PRODUCT_SUCCESS, ALL_PRODUCT_REQUEST, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, CLEAR_ERRORS, REMOVE_PRODUCT_DETAIL_SUCCESS } from "../constant/productConstants";
 import axios from 'axios'
 export const getProduct = (keyword = "", currentpage = 1, slideValue1 = [0, 2000], rating = 0, catogory = []) => async (dispatch) => {
 
@@ -45,6 +45,13 @@ export const getProductDetail = (id) => async (dispatch) => {
    type: PRODUCT_DETAIL_FAIL,
    payload: err
   })
+ }
+}
+export const clearProductDetail = () => async (dispatch) => {
+ try {
+  dispatch({ type: REMOVE_PRODUCT_DETAIL_SUCCESS });
+ } catch (err) {
+  console.log(err);
  }
 }
 export const clearError = () => (dispatch) => {

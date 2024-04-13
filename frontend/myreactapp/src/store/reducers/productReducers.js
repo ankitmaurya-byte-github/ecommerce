@@ -1,4 +1,4 @@
-import { ALL_PRODUCT_FAIL, ALL_PRODUCT_SUCCESS, ALL_PRODUCT_REQUEST, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, CLEAR_ERRORS } from "../constant/productConstants";
+import { ALL_PRODUCT_FAIL, ALL_PRODUCT_SUCCESS, ALL_PRODUCT_REQUEST, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, CLEAR_ERRORS, REMOVE_PRODUCT_DETAIL_SUCCESS } from "../constant/productConstants";
 function productReducers(state = { products: [] }, action) {
  switch (action.type) {
   case ALL_PRODUCT_REQUEST:
@@ -45,6 +45,10 @@ function productDetailReducer(state = { product: {} }, action) {
    return {
     loading: false,
     error: action.payload
+   }
+  case REMOVE_PRODUCT_DETAIL_SUCCESS:
+   return {
+    product: {}
    }
   case CLEAR_ERRORS:
    return {

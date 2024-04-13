@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { clearError } from '../../store/action/producAction';
+import { clearError, clearProductDetail } from '../../store/action/producAction';
 import { useSelector, useDispatch } from 'react-redux';
 import ReviewCard from './reviewsCard/ReviewCard';
 import ReactStars from "react-rating-stars-component";
@@ -9,6 +9,7 @@ import Carousel from 'react-material-ui-carousel'
 import { useAlert } from 'react-alert';
 import Loader from '../layout/loader/Loader';
 import './productdetails.scss'
+import { addProductToCart } from '../../store/action/cartAction';
 function ProductDetails() {
  const alert = useAlert()
  const { error, loading, product } = useSelector(state => state.productDetail)
@@ -21,7 +22,7 @@ function ProductDetails() {
   count: 5,
   onChang: "ratingChanged",
   size: 20,
-  value: product?.ratings || 0,
+  value: product.ratings || 0,
   isHalf: true,
   activeColor: "#ffd700"
  }
@@ -30,12 +31,18 @@ function ProductDetails() {
   const scrollToTop = () => {
    window.scrollTo({
     top: 0,
-    // behavior: 'smooth' // Optional: Adds smooth scrolling animation
+    behavior: 'smooth' // Optional: Adds smooth scrolling animation
    });
   };
-
+  console.log("this");
   // Scroll to top on component mount or page reload
-  scrollToTop();
+  setTimeout(scrollToTop, 0);
+
+  return () => {
+   console.log("clearing product detail");
+   dispatch(clearProductDetail())
+  };
+
  }, []);
 
  useEffect(() => {
@@ -46,7 +53,6 @@ function ProductDetails() {
   dispatch(getProductDetail(id))
  }, [dispatch, alert, error, id])
  const handleCountChange = () => {
-
  }
 
  return (
@@ -78,7 +84,7 @@ function ProductDetails() {
          <input type='text' onChange={handleCountChange} value={productCount} />
          <button onClick={() => product.stock > productCount && setProductCount(productCount + 1)}>+</button>
         </div>
-        <button>
+        <button onClick={() => dispatch(addProductToCart({ ...product, quantity: productCount }))} >
          Add To Cart
         </button>
        </div>

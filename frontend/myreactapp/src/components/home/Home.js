@@ -19,11 +19,10 @@ function Home() {
    console.log("jhu");
    window.scrollTo({
     top: 0,
-
    });
   };
 
-  scrollToTop();
+  setTimeout(scrollToTop, 0);
  }, []);
  useEffect(() => {
   if (error) {

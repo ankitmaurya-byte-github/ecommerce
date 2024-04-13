@@ -49,7 +49,7 @@ const getRandomElement = (array) => {
 const getrandomreview = (allUser) => {
  const total = getrand(10);
  let returnarray = [];
-
+ let totalRating = 0
  for (let i = 0; i <= total + 2; i++) {
   let review = {};
   let person = getrand(allUser.length - 1);
@@ -57,9 +57,10 @@ const getrandomreview = (allUser) => {
   review.user = allUser[person]._id;
   review.comment = generateRandomParagraph(getrand(2) + 1, getrand(10) + 1);
   review.rating = getrand(5);
+  totalRating += review.rating
   returnarray.push(review);
  }
- return returnarray;
+ return { reviewsArray: returnarray, productRating: (returnarray.length * 5) / totalRating };
 };
 function getRandomWord() {
  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
@@ -92,13 +93,13 @@ const createRandomProduct = async () => {
   reqbody.name = getRandomWord()
   reqbody.price = getrand(2000);
   reqbody.description = generateRandomParagraph(getrand(3) + 1, getrand(10) + 1);
-  reqbody.ratings = getrand(5);
   reqbody.user = allUser[getrand(usersLength - 1)]._id;
   let revs = getrandomreview(allUser);
-  reqbody.reviews = revs
+  reqbody.ratings = revs.productRating;
+  reqbody.reviews = revs.reviewsArray
   reqbody.stock = getrand(5);
   reqbody.category = categories[getrand(categories.length - 1)];
-  reqbody.numOfReviews = revs.length;
+  reqbody.numOfReviews = revs.reviewsArray.length;
   shuffleArray(imagesArray)
   reqbody.images = imagesArray
 
