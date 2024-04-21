@@ -100,7 +100,7 @@ export const logoutUser = () => async (dispatch) => {
 
 export const profileUpdate = (userData) => async (dispatch) => {
  const config = {
-  'Content-Type': 'multipart/form-data',
+  "Content-Type": "multipart/form-data",
  }
  try {
 

@@ -13,7 +13,7 @@ import Auth from './components/users/Auth';
 import { loadUser } from './store/action/userAction';
 import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
-import { FaUser, FaUserAlt, FaLock } from 'react-icons/fa';
+// import { FaUser, FaUserAlt, FaLock } from 'react-icons/Fa';
 
 import { useSelector } from 'react-redux';
 import UserOption from './components/layout/header/UserOption';
@@ -23,43 +23,58 @@ import UpdateProfile from './components/users/updateProfile.js/UpdateProfile';
 import UpdatePassword from './components/users/updatePassword/UpdatePassword';
 import ResetLink from './components/users/Profile/resetlink/ResetLink';
 import ResetPassword from './components/users/Profile/resetPassword/ResetPassword';
+import ProductCart from './components/home/order/productCart/ProductCart';
 function App() {
- const user = useSelector(state => state.userData)
- const dispatch = useDispatch()
+ const user = useSelector((state) => state.userData);
+ const { loading } = useSelector((state) => state.userData);
+
+ const dispatch = useDispatch();
  useEffect(() => {
   webfont.load({
    google: {
-    families: ['Roboto'],
+    families: ["Roboto"],
    },
-  })
-  dispatch(loadUser())
- }, [dispatch])
-
+  });
+  dispatch(loadUser());
+ }, [dispatch]);
  return (
-  <div>
+  <>
+   {loading !== undefined && !loading && <div>
+    <Header />
+    {user.isAuthenticated && <UserOption user={user} />}
+    <Routes>
+     <Route path="/" element={<Home />} />
+     <Route exact path="/product/:id" element={<ProductDetails />} />
+     <Route path="/products/:keyword" element={<Products />} />
+     <Route exact path="/products" element={<Products />} />
+     <Route path="/search" element={<Search />} />
+     <Route path="/login" element={<Auth />} />
+     <Route path="/auth" element={<Auth />} />
+     <Route path="/register" element={<Auth />} />
+     <Route path="/password/reset/" element={<ResetLink />} />
+     <Route path="/password/reset/:token" element={<ResetPassword />} />
+     {user.isAuthenticated && (
+      <Route path="/profile/me/update" element={<UpdateProfile />} />
+     )}
+     {user.isAuthenticated && (
+      <Route path="/password/me/update" element={<UpdatePassword />} />
+     )}
+     <Route
+      path="/profile"
+      element={user.isAuthenticated ? <Profile /> : <NavigateAuth />}
+     />
+     <Route
+      path="/cart"
+      element={
+       user?.isAuthenticated ? <ProductCart /> : <NavigateAuth />
+      }
+     />
+    </Routes>
+    <Footer />
+   </div>}
+  </>
 
-   <Header />
-   {user.isAuthenticated && <UserOption user={user} />}
-   <UserOption user={user} />
-   <Routes>
-    <Route path='/' element={<Home />} />
-    <Route exact path='/product/:id' element={<ProductDetails />} />
-    <Route path='/products/:keyword' element={<Products />} />
-    <Route exact path='/products' element={<Products />} />
-    <Route path='/search' element={<Search />} />
-    <Route path='/login' element={<Auth />} />
-    <Route path='/auth' element={<Auth />} />
-    <Route path='/register' element={<Auth />} />
-    <Route path='/password/reset/' element={<ResetLink />} />
-    <Route path='/password/reset/:token' element={<ResetPassword />} />
-    {user.isAuthenticated && <Route path='/profile/me/update' element={<UpdateProfile />} />}
-    {user.isAuthenticated && <Route path='/password/me/update' element={<UpdatePassword />} />}
-    <Route path='/profile' element={user.isAuthenticated ? <Profile /> : <NavigateAuth />} />
 
-    {/* <Route exact path='/profile' element={<ProtectedRoute user={user} />} ><Profile /></Route> */}
-   </Routes>
-   <Footer />
-  </div>
  );
 }
 

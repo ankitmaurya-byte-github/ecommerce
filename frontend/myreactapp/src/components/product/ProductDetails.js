@@ -10,11 +10,13 @@ import { useAlert } from 'react-alert';
 import Loader from '../layout/loader/Loader';
 import './productdetails.scss'
 import { addProductToCart } from '../../store/action/cartAction';
+import { useNavigate } from 'react-router-dom';
 function ProductDetails() {
  const alert = useAlert()
  const { error, loading, product } = useSelector(state => state.productDetail)
  const { id } = useParams();
  const dispatch = useDispatch()
+ const navigate = useNavigate()
  const [productCount, setProductCount] = useState(1)
 
  const option = {
@@ -87,7 +89,11 @@ function ProductDetails() {
         <button onClick={() => dispatch(addProductToCart({ ...product, quantity: productCount }))} >
          Add To Cart
         </button>
+
        </div>
+       <button onClick={() => { navigate('/cart') }} >
+        Go To Cart
+       </button>
        <p>Status :<b className={product.stock < 1 ? "redColor" : "greenColor"}>
         {product.stock < 1 ? "outOfStock" : "inStock"}
        </b></p>

@@ -1,0 +1,31 @@
+.cartItem {
+ display: grid;
+ grid-template-columns: 2fr 1fr 1fr;
+ justify-items: center;
+ align-items: center;
+
+ .details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  justify-items: center;
+  align-items: center;
+  justify-self: start;
+ }
+
+ img {
+  width: 14vw;
+  height: 13vh;
+  justify-self: start;
+ }
+
+ .quantity {
+  button {
+   display: inline-block;
+  }
+
+  input {
+   width: 2vw;
+  }
+ }
+}

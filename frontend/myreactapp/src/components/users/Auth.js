@@ -87,7 +87,7 @@ function Auth() {
        </label>
 
 
-       <button onClick={handleSinUp}>Sign Up</button>
+       <button className={style.button} onClick={handleSinUp}>Sign Up</button>
       </form>
      </div>
      <div className={`${style.formcontainer} ${style.signincontainer}`}>
@@ -96,7 +96,7 @@ function Auth() {
        <input type="email" value={userData.email} onChange={(e) => setUserData({ ...userData, email: e.target.value })} placeholder="Email" />
        <input type="password" value={userData.password} onChange={(e) => setUserData({ ...userData, password: e.target.value })} placeholder="Password" />
        <a href="/password/reset">Forgot your password?</a>
-       <button onClick={handleSinIn}>Sign In</button>
+       <button className={style.button} onClick={handleSinIn}>Sign In</button>
       </form>
      </div>
      <div className={style.overlaycontainer}>
@@ -104,12 +104,12 @@ function Auth() {
        <div className={`${style.overlaypanel} ${style.overlayleft}`}>
         <h1>Welcome Back!</h1>
         <p>To keep connected with us please login with your personal info</p>
-        <button className={style.ghost} onClick={() => setSwipe("")} id="signIn">Sign In</button>
+        <button className={`${style.button} ${style.ghost}`} onClick={() => setSwipe("")} id="signIn">Sign In</button>
        </div>
        <div className={`${style.overlaypanel} ${style.overlayright}`}>
         <h1>Hello, Friend!</h1>
         <p>Enter your personal details and start journey with us</p>
-        <button className={style.ghost} onClick={() => setSwipe("sinup")} id="signUp">Sign Up</button>
+        <button className={`${style.button} ${style.ghost}`} onClick={() => setSwipe("sinup")} id="signUp">Sign Up</button>
        </div>
       </div>
      </div>
