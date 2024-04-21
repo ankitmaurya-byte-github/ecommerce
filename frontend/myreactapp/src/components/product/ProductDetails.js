@@ -83,7 +83,7 @@ function ProductDetails() {
        <div className="detailsBlock_c1">
         <div className="detailsBlock_c1a">
          <button onClick={() => productCount > 1 && setProductCount(productCount - 1)}>-</button>
-         <input type='text' onChange={handleCountChange} value={productCount} />
+         <input readOnly type='text' onChange={handleCountChange} value={productCount} />
          <button onClick={() => product.stock > productCount && setProductCount(productCount + 1)}>+</button>
         </div>
         <button onClick={() => dispatch(addProductToCart({ ...product, quantity: productCount }))} >

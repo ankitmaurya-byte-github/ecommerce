@@ -5,8 +5,9 @@
  display: grid;
  background-color: bisque;
  padding: 10vh 10vw;
- grid-template-rows: 15% 85%;
+ grid-template-rows: 15% 75% 10%;
  overflow: scroll;
+ grid-template-columns: repeat(3, 1fr);
 
  .cartHeader {
   background-color: cornflowerblue;
@@ -14,15 +15,30 @@
   grid-template-columns: 2fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-
+  grid-column: 1/-1;
  }
 
  .cartItems {
+  grid-column: 1/-1;
   background-color: rgb(177, 160, 8);
   overflow: scroll;
   scroll-behavior: h;
   display: grid;
   align-items: center;
   grid-template-rows: repeat(auto-fill, minmax(33%, 33%));
+ }
+
+
+ .cartCheckOut {
+  background-color: cornflowerblue;
+
+  grid-column: 3/-1;
+  display: grid;
+  justify-items: center;
+
+  div:nth-child(2) {
+   display: flex;
+
+  }
  }
 }
