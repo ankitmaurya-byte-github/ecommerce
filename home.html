@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palace Reviews</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        .carousel-item {
+            height: 400px;
+            background: no-repeat center center scroll;
+            background-size: cover;
+        }
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .review {
+            display: none;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .review.active {
+            display: block;
+        }
+        .review:hover {
+            transform: scale(1.05);
+            background-color: #f1f1f1;
+        }
+        .map-container {
+            height: 500px;
+            margin-top: 20px;
+            background: url('https://www.transparenttextures.com/patterns/arabesque.png');
+        }
+        .svg-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .icon {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .icon:hover {
+            transform: scale(1.2);
+            background-color: #0099ff;
+            border-radius: 50%;
+        }
+        .icon i {
+            color: white;
+            font-size: 24px;
+            line-height: 50px;
+        }
+        .emoji {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<svg class="svg-background" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,160L80,138.7C160,117,320,75,480,80C640,85,800,139,960,181.3C1120,224,1280,256,1360,272L1440,288L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Palace Reviews</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#carouselExampleIndicators">Carousel</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#map">Map</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active" style="background-image: url('https://images.pexels.com/photos/302743/pexels-photo-302743.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');" data-lat="48.858844" data-lng="2.294351">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Palace 1</h5>
+                <p>Beautiful palace with stunning architecture.</p>
+            </div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');" data-lat="51.501364" data-lng="-0.14189">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Palace 2</h5>
+                <p>Historic palace with rich cultural heritage.</p>
+            </div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://images.pexels.com/photos/69903/pexels-photo-69903.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');" data-lat="40.689247" data-lng="-74.044502">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Palace 3</h5>
+                <p>Modern palace with beautiful gardens.</p>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<div class="container">
+    <div class="review" id="review1">
+        <h3>Reviews for Palace 1</h3>
+        <p><span class="emoji">😍</span> Review 1: Amazing place!</p>
+        <p><span class="emoji">👍</span> Review 2: A must-visit!</p>
+    </div>
+    <div class="review" id="review2">
+        <h3>Reviews for Palace 2</h3>
+        <p><span class="emoji">🏛️</span> Review 1: Stunning architecture!</p>
+        <p><span class="emoji">📜</span> Review 2: Rich history!</p>
+    </div>
+    <div class="review" id="review3">
+        <h3>Reviews for Palace 3</h3>
+        <p><span class="emoji">🌸</span> Review 1: Beautiful gardens!</p>
+        <p><span class="emoji">✨</span> Review 2: Modern and elegant!</p>
+    </div>
+</div>
+
+<div class="icon-container">
+    <div class="icon">
+        <i class="fas fa-landmark"></i>
+    </div>
+    <div class="icon">
+        <i class="fas fa-archway"></i>
+    </div>
+    <div class="icon">
+        <i class="fas fa-building"></i>
+    </div>
+    <div class="icon">
+        <i class="fas fa-monument"></i>
+    </div>
+    <div class="icon">
+        <i class="fas fa-castle"></i>
+    </div>
+</div>
+
+<div id="map" class="map-container"></div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min
+.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXuRu7OoBYxNXcMfeZkqS-QyM9YfFqSVk"></script>
+<script>
+    $(document).ready(function() {
+        function initMap(lat, lng) {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: lat, lng: lng},
+                zoom: 15
+            });
+            new google.maps.Marker({
+                position: {lat: lat, lng: lng},
+                map: map
+            });
+        }
+
+        $('.carousel-item').click(function() {
+            var index = $(this).index();
+            $('.review').removeClass('active');
+            $('#review' + (index + 1)).addClass('active');
+            var lat = parseFloat($(this).data('lat'));
+            var lng = parseFloat($(this).data('lng'));
+            initMap(lat, lng);
+        });
+
+        // Trigger click on the first carousel item to initialize the map
+        $('.carousel-item.active').click();
+    });
+</script>
+
+</body>
+</html>

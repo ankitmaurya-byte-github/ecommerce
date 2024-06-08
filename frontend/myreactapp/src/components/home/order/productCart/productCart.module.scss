@@ -3,14 +3,15 @@
  height: 100vh;
  width: 100vw;
  display: grid;
- background-color: bisque;
+ background-color: rgb(255, 255, 255);
  padding: 10vh 10vw;
  grid-template-rows: 15% 75% 10%;
  overflow: scroll;
  grid-template-columns: repeat(3, 1fr);
 
+
  .cartHeader {
-  background-color: cornflowerblue;
+  background-color: rgb(151, 180, 235, .3);
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   justify-items: center;
@@ -20,12 +21,12 @@
 
  .cartItems {
   grid-column: 1/-1;
-  background-color: rgb(177, 160, 8);
+  background-color: rgba(178, 197, 232, 0.2);
   overflow: scroll;
   scroll-behavior: h;
   display: grid;
   align-items: center;
-  grid-template-rows: repeat(auto-fill, minmax(33%, 33%));
+  grid-template-rows: repeat(3, 20vh);
  }
 
 
@@ -41,4 +42,16 @@
 
   }
  }
+}
+
+.emptyCart {
+ margin: 41vh 0;
+ padding: auto;
+ display: grid;
+ justify-items: center;
+
+ div {
+  text-align: center;
+ }
+
 }

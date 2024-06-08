@@ -50,6 +50,7 @@ exports.loginUser = catchAsyncErroe(async (req, res, next) => {
  if (!user) {
   return next(new errorhandler(404, "User not found"))
  }
+
  const ismathched = await user.comparepassword(password)
 
  if (!ismathched) {
@@ -137,6 +138,7 @@ exports.tryA = async (req, res) => {
 exports.getUserDetail = catchAsyncErroe(
  async (req, res, next) => {
   const user = await usermodel.findOne({ _id: req.user.id })
+  console.log(req.user);
   console.log("getuserDetail");
   res.status(200).json({
    success: true,

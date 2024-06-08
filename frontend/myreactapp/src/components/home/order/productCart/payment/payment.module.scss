@@ -1,0 +1,44 @@
+.form {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ margin-top: 2rem;
+ height: 59vh;
+
+ .element {
+  width: 11rem;
+  height: 5vh;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2px 9px;
+ }
+
+ .paymentinput {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  svg {
+   margin-right: 0.5rem;
+  }
+ }
+
+ .submit {
+  margin-top: 1rem;
+
+  input[type="submit"] {
+   padding: 0.5rem 1rem;
+   background-color: #007bff;
+   color: #fff;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+
+   &:hover {
+    background-color: #0056b3;
+   }
+  }
+ }
+}

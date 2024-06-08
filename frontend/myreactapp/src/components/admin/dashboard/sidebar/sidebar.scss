@@ -1,0 +1,17 @@
+.sidebar {
+ p {
+  cursor: pointer;
+ }
+
+ img {
+  width: calc(100% - 16px);
+  height: 15vh;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s;
+ }
+
+ img:hover {
+  transform: scale(0.9);
+ }
+}

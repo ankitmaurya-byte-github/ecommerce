@@ -3,7 +3,7 @@ const productModel = require("../models/product_model")
 const ErrorHandler = require("../utils/errorhandler")
 const usermodel = require("../models/product_model")
 const apiFeature = require("../utils/apiFeature")
-
+const cloudinary = require('cloudinary');
 
 // async function deleteAllProducts() {
 //  try {
@@ -18,8 +18,30 @@ const apiFeature = require("../utils/apiFeature")
 
 module.exports = {
  creatProduct: catchAsyncErroe(async (req, res) => {
+  // console.log(req.body);
   // req.body.user = req.user.id
-  const data = await productModel.create(req.body)
+  console.log(req.body);
+  const images = []
+  req.body.images.forEach(async (image) => {
+   const mycloud = await cloudinary.uploader.upload(image,
+    {
+     folder: 'photo',
+     width: 150,
+     crop: 'scale'
+    });
+   if (!mycloud) {
+    console.log("lawde lag gaye");
+    return res.status(500).json({
+     message: "fail hogaya bhai"
+    })
+   }
+   images.push({
+    public_id: mycloud.public_id,
+    url: mycloud.secure_url,
+   })
+  });
+  console.log(req.user);
+  const data = await productModel.create({ ...req.body, images, user: req.user.id })
   if (!data) {
    return next(new ErrorHandler(404, "product failed to create"))
   }
@@ -48,6 +70,19 @@ module.exports = {
    totaldoc,
    dataPerPage,
    filterProductCount
+  });
+ }),
+ getAllAdminProduct: catchAsyncErroe(async (req, res, next) => {
+
+  const data = await productModel.find()
+
+  if (!data) {
+   return next(new ErrorHandler(696, "product not found"))
+  }
+
+  res.status(200).json({
+   success: true,
+   data,
   });
  }),
  updateProduct: catchAsyncErroe(async (req, res) => {
@@ -79,15 +114,16 @@ module.exports = {
   })
  }),
  productDetails: catchAsyncErroe(async (req, res, next) => {
-  const data = await productModel.findById(req.params.id)
+  const data = await productModel.findById(req.params.id);
+  console.log("Hdfhdfh");
   console.log(req.params.id);
   if (!data) {
-   return next(new ErrorHandler(404, "product not found"))
+   return next(new ErrorHandler(404, "product not found"));
   }
   res.status(200).json({
    success: true,
-   data
-  })
+   data,
+  });
  }),
  deleteReview: catchAsyncErroe(
   async (req, res, next) => {
@@ -151,7 +187,9 @@ module.exports = {
    await product.save({ validateBeforeSave: false })// why its need 
    res.status(200).json({
     message: "rating updated sucessfully",
-    success: true
+    success: true,
+    review,
+
    })
   }
 

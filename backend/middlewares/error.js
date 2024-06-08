@@ -1,6 +1,8 @@
 const errorhandler = require('../utils/errorhandler');
 module.exports = (err, req, res, next) => {
- err.statuscode = err.statuscode || 404
+ console.log(err);
+ // err.statuscode = err.statuscode || 404
+ console.log("this is rerr");
  console.log(err);
  err.message = err.message || "Invalid server err"
 

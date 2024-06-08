@@ -106,8 +106,8 @@ function Products() {
    {loading ? <Loader /> :
     <Fragment>
      <MetaData title={"Products"} />
-     {/* products */}
 
+     {/* products */}
      <div className={`products ${params.keyword ? "" : "nomargin"}`}>
       {products && products.map((data, i) => {
        return <ProductCards product={data} key={i} />

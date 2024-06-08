@@ -1,0 +1,58 @@
+.createProduct {
+ display: grid;
+ overflow: hidden;
+ margin: auto;
+
+ grid-template-columns: 1.3fr 5fr;
+ margin-top: 45px;
+ padding: 0 10%;
+
+ .mainbox {
+  width: 100%;
+
+  .createProductForm {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   gap: 20px;
+  }
+
+  .productImages {
+   height: 200px;
+   width: 200px;
+   display: flex;
+   align-items: end;
+
+   [class=" css-ohwg9z"] {
+    width: 100%;
+    height: 100%;
+
+    [class="css-1f8sh1y"] {
+     height: 100% !important;
+
+     div:has(> img) {
+      height: 100%;
+      width: 100%;
+      transition: transform 0.4s;
+
+      &:hover {
+       transform: scale(1.1);
+      }
+     }
+    }
+   }
+
+   img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+   }
+  }
+ }
+
+
+ /* Corrected code */
+
+}

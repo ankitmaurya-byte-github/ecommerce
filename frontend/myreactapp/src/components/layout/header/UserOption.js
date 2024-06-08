@@ -9,6 +9,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import { useEffect } from 'react';
 import image from '../../../images/avatar.png'
 import { useNavigate } from 'react-router-dom';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { logoutUser } from '../../../store/action/userAction';
 import LoginIcon from '@mui/icons-material/Login';
 import { Fragment } from 'react';
@@ -20,22 +21,20 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 export default function UserOption({ user }) {
  const location = useLocation();
- const userdata = useSelector(state => state.userData)
  const { isAuthenticated } = user
  const alert = useAlert()
  const navigate = useNavigate()
  const dispatch = useDispatch()
  const [open, setOpen] = useState(false)
  const [actions, setActions] = useState([
-  { icon: <PersonIcon />, name: 'Profile', clickHandleFunc: profile },
-  { icon: <ListAltIcon />, name: 'Orders', clickHandleFunc: orders },
-  { icon: <ExitToAppIcon />, name: 'Logout', clickHandleFunc: logout }
+
+  { icon: <ShoppingCartIcon />, name: 'Cart', clickHandleFunc: cart }
  ])
 
  function logout() {
   dispatch(logoutUser());
   alert.success("Logout Successfully");
-  navigate('/login')
+
  }
  function login() {
   if (location.pathname !== '/login') {
@@ -48,6 +47,9 @@ export default function UserOption({ user }) {
  function orders() {
   navigate('/orders')
  }
+ function cart() {
+  navigate('/cart')
+ }
  function dashboard() {
   navigate('/dashboard')
  }
@@ -57,8 +59,14 @@ export default function UserOption({ user }) {
   // if (isAuthenticated) {
   //  action.push()
   // }
-  if (userdata.role === 'admin') {
+  if (user.role === 'admin') {
    action.unshift({ icon: <DashboardIcon />, name: 'Copy', clickHandleFunc: dashboard })
+  }
+  if (isAuthenticated) {
+   action.push({ icon: <ExitToAppIcon />, name: 'Logout', clickHandleFunc: logout }, { icon: <PersonIcon />, name: 'Profile', clickHandleFunc: profile },
+    { icon: <ListAltIcon />, name: 'Orders', clickHandleFunc: orders },)
+  } else {
+   action.push({ icon: <LoginIcon />, name: 'Login', clickHandleFunc: login })
   }
   setActions([...action])
  }, [])
@@ -77,7 +85,7 @@ export default function UserOption({ user }) {
     sx={{ position: 'absolute', top: 16, right: 16 }}
     icon={< img style={{
      width: "56px", height: "56px", objectPosition: "center", objectFit: 'cover', borderRadius: '50%'
-    }} src={userdata?.avatar?.post_url || image} alt='' />}
+    }} src={user?.avatar?.post_url || image} alt='' />}
    >
     {
      actions.map((action) => (

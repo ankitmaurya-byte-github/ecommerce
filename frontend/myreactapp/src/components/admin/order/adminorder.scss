@@ -1,0 +1,24 @@
+.adminOrders {
+
+ display: grid;
+ overflow: hidden;
+ margin: auto;
+ height: 100vh;
+ grid-template-columns: 1.3fr 5fr;
+ margin-top: 45px;
+ padding: 0 10%;
+
+ .maincontent {
+  width: 100%;
+  overflow-y: hidden;
+ }
+
+ .abchdf {
+  --DataGrid-hasScrollY: 0 !important;
+ }
+
+ /* Corrected code */
+ .css-yrdy0g-MuiDataGrid-columnHeaderRow {
+  background-color: tomato !important;
+ }
+}

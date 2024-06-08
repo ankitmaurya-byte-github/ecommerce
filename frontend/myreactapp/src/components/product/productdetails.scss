@@ -1,4 +1,83 @@
+// .ReactModalPortal {
+//  position: absolute;
+//  top: 0;
+//  left: 0;
+//  z-index: 1;
+//  height: 100vh;
+//  width: 100vw;
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//  background-image: radial-gradient(farthest-corner circle at 50% 50%,
+//    rgba(56, 59, 64, 0.22) 12%,
+//    rgba(156, 168, 158, 0.52) 77%);
+// }
+.submitView {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ padding: 20px;
+ background-color: #f9f9f9;
+ border-radius: 8px;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ width: 30%;
+ margin: auto;
+
+ h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+ }
+
+ .react-stars {
+  margin-bottom: 20px;
+ }
+
+ input[type="text"] {
+  width: 100%;
+  height: 75px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+
+  &::placeholder {
+   position: absolute;
+   top: 0px; // Adjust to align with padding
+   left: 0px; // Adjust to align with padding
+   font-size: 16px; // Match the font size of the textarea
+   color: #999; // Adjust placeholder color as needed
+  }
+
+ }
+
+ button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:first-of-type {
+   background-color: #f44336;
+   color: white;
+  }
+
+  &:last-of-type {
+   background-color: #4caf50;
+   color: white;
+  }
+
+  &:hover {
+   opacity: 0.9;
+  }
+ }
+}
+
 .productDetail {
+
  width: 100vw;
  height: 100vh;
  padding: 6vmax;
@@ -6,20 +85,28 @@
  display: flex;
 
  div:has(> img) {
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
  }
 
  img {
-  width: 340px;
-  height: 540px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
  }
 
  [class=" css-ohwg9z"] {
   width: 100%;
+  height: 100%;
+
+  [class="css-1f8sh1y"] {
+   height: 100% !important;
+
+  }
  }
 
  &>div:nth-child(2) {
@@ -179,30 +266,31 @@
 }
 
 .reviews {
- padding: 2vmax;
- width: 30vw;
- height: 20vh;
+ padding: 0 2vw;
  display: flex;
  justify-content: center;
  flex-wrap: wrap;
  width: 90vmax;
- gap: 4vw;
- height: 50vmax;
- align-items: center;
+ gap: 2vw;
+ max-height: 50vmax;
+ align-items: start;
  overflow: scroll;
  margin: auto;
+ box-sizing: border-box;
 
  .review-card {
   -webkit-box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.54);
-  box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.54);
-  width: 20vw;
-  height: 20vh;
-
-  padding: 1vw 2vw;
+  box-shadow: 1px 1px 6px 1px rgba(255, 0, 0, 0.16);
+  width: 25vw;
+  height: 28vh;
+  padding: 0px 1vw;
+  padding-top: 0px;
+  padding-top: 0px;
   display: flex;
   border-radius: 10px;
   flex-direction: column;
-  gap: 1vh;
+  padding-top: 2vh;
+  background-color: rgba(251, 192, 192, 0.17);
 
   .upper {
    display: flex;
@@ -227,7 +315,7 @@
   }
 
   .comment {
-   height: 5vh;
+   height: 10vh;
    overflow: hidden;
   }
 
@@ -239,7 +327,22 @@
   background-color: rgba(205, 198, 198, 0.4);
 
   &:hover {
-   background-color: rgba(205, 198, 198, 0.7);
+   background-color: rgba(200, 170, 170, 0.568);
   }
  }
 }
+
+// .ReactModalPortal {
+//  position: absolute;
+//  top: 0;
+//  left: 0;
+//  z-index: 1;
+//  height: 100vh;
+//  width: 100vw;
+//  justify-content: center;
+//  display: flex;
+//  align-items: center;
+//  // background-image:
+//  // radial-gradient(farthest-corner circle at 50% 50%,
+//  //  #246dff 11% 11%, #fff9cb 51% 100%);
+// }

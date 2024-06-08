@@ -14,6 +14,7 @@ import { loadUser } from './store/action/userAction';
 import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 // import { FaUser, FaUserAlt, FaLock } from 'react-icons/Fa';
+import { Switch } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
 import UserOption from './components/layout/header/UserOption';
@@ -24,9 +25,37 @@ import UpdatePassword from './components/users/updatePassword/UpdatePassword';
 import ResetLink from './components/users/Profile/resetlink/ResetLink';
 import ResetPassword from './components/users/Profile/resetPassword/ResetPassword';
 import ProductCart from './components/home/order/productCart/ProductCart';
+import Shiping from './components/home/order/productCart/shiping/Shiping';
+import OrderPage from './components/home/order/usersOrders/Orders';
+import axios from 'axios';
+import Payment from './components/home/order/productCart/payment/Payment';
+import { useAlert } from 'react-alert';
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from '@stripe/stripe-js';
+import Sucess from './components/home/order/productCart/payment/sucess/Sucess';
+import UserOrders from './components/home/order/userOrders';
+import OrderDetails from './components/home/order/orderDetails/OrderDetails';
+import Dashboard from './components/admin/dashboard/Dashboard.js';
+import AdminProducts from './components/admin/products/AdminProducts.js';
+import Adminorder from './components/admin/order/Adminorder..js';
+import CreateProduct from './components/admin/products/createProduct/CreateProduct.js';
+
 function App() {
+ const alert = useAlert()
  const user = useSelector((state) => state.userData);
  const { loading } = useSelector((state) => state.userData);
+ const [stripeApiKey, setStripeApiKey] = useState()
+ async function getStripeApiKey() {
+  try {
+   const { data } = await axios.get('app/v1/getApiKey')
+   setStripeApiKey(data.stripeApiKey)
+  }
+  catch (err) {
+   console.log("this is catch ");
+   // alert.error(err)
+  }
+
+ }
 
  const dispatch = useDispatch();
  useEffect(() => {
@@ -36,22 +65,33 @@ function App() {
    },
   });
   dispatch(loadUser());
+  getStripeApiKey()
  }, [dispatch]);
  return (
   <>
    {loading !== undefined && !loading && <div>
     <Header />
-    {user.isAuthenticated && <UserOption user={user} />}
+    <UserOption user={user} />
     <Routes>
      <Route path="/" element={<Home />} />
      <Route exact path="/product/:id" element={<ProductDetails />} />
      <Route path="/products/:keyword" element={<Products />} />
      <Route exact path="/products" element={<Products />} />
      <Route path="/search" element={<Search />} />
+     <Route path="/shipping" element={<Shiping />} />
+     <Route path="/success" element={<Sucess />} />
      <Route path="/login" element={<Auth />} />
      <Route path="/auth" element={<Auth />} />
+     <Route path="/order/confirm" element={<OrderPage />} />
+     <Route path="/order/:id" element={<OrderDetails />} />
      <Route path="/register" element={<Auth />} />
+     <Route path="/orders" element={<UserOrders />} />
+     <Route path="admin/dashboard" element={<Dashboard />} />
+     <Route path="admin/products" element={<AdminProducts />} />
+     <Route path="admin/create/product" element={<CreateProduct />} />
+     <Route path="admin/orders" element={<Adminorder />} />
      <Route path="/password/reset/" element={<ResetLink />} />
+     {stripeApiKey && <Route path="/payment/" element={<Elements stripe={loadStripe(stripeApiKey)}><Payment /></Elements>} />}
      <Route path="/password/reset/:token" element={<ResetPassword />} />
      {user.isAuthenticated && (
       <Route path="/profile/me/update" element={<UpdateProfile />} />
@@ -65,9 +105,7 @@ function App() {
      />
      <Route
       path="/cart"
-      element={
-       user?.isAuthenticated ? <ProductCart /> : <NavigateAuth />
-      }
+      element={<ProductCart />}
      />
     </Routes>
     <Footer />

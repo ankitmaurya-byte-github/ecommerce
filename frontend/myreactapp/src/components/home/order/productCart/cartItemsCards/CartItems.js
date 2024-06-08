@@ -5,18 +5,21 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 import { useContext } from 'react';
 import { cartItemsContext } from '../ProductCart';
-const CartItems = ({ index, item }) => {
- const { cartProducts, setCartProducts } = useContext(cartItemsContext);
+const CartItems = ({ details, index, item }) => {
+ const { cartProducts, changeCartProducts: setCartProducts } = details
 
  return (
   <div className={stylecart.cartItem}>
    <div className={stylecart.details}>
     <img src={item.images[0].url} alt="" />
     <div>
-     <Link to={`/product/${item.id}`}>{item.name}</Link>
+     <Link to={`/product/${item._id}`}>{item.name}</Link>
      <span>{item.price}</span>
-     <p>remove</p>
-
+     <p onClick={() => {
+      const updatedCartProducts = [...cartProducts];
+      let pro = updatedCartProducts.filter(product => product._id !== item._id)
+      setCartProducts(pro);
+     }}>remove</p>
     </div>
    </div>
    <div className={stylecart.quantity}>

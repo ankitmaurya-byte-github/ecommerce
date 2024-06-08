@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+ font-family: 'Roboto', sans-serif;
+}
+
+.order-component {
+ font-family: 'Roboto', sans-serif;
+ border: 1px solid #ccc;
+ padding: 20px;
+ max-width: 600px;
+ margin: 5vh auto;
+ background: linear-gradient(135deg, #f3f3f3, #e2e2e2);
+ border-radius: 10px;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ animation: fadeIn 1s ease-in-out;
+
+ .order-header,
+ .shipping-info,
+ .order-items {
+  margin-bottom: 20px;
+
+  h2,
+  h3 {
+   margin-bottom: 10px;
+   display: flex;
+   align-items: center;
+   color: #333;
+   font-weight: 700;
+   background: linear-gradient(to right, #ff9a9e, #fad0c4);
+   -webkit-background-clip: text;
+   color: transparent;
+   animation: textGradient 3s linear infinite;
+
+   svg {
+    margin-left: 10px;
+    color: #007bff;
+
+   }
+  }
+
+  p {
+   margin: 5px 0;
+   font-family: 'Roboto', sans-serif;
+
+   svg {
+    margin-left: 10px;
+    color: #007bff;
+
+   }
+  }
+ }
+
+ .order-items {
+  ul {
+   list-style-type: none;
+   padding: 0;
+
+   li {
+
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    &:nth-child(odd) {
+     background: linear-gradient(135deg, #f3f3f3, #e2e2e2);
+    }
+
+    &:nth-child(even) {
+     background: linear-gradient(135deg, #e2e2e2, #f3f3f3);
+    }
+
+    &:hover {
+     background-color: #f1f1f1;
+     transform: scale(1.02);
+
+     img {
+      transform: scale(1.1);
+     }
+    }
+
+    &:last-child {
+     border-bottom: none;
+    }
+
+    img {
+     width: 50px;
+     height: 50px;
+     border-radius: 5px;
+     margin-right: 15px;
+     transition: transform 0.3s ease;
+    }
+
+    .item-details {
+     flex-grow: 1;
+     font-family: 'Roboto', sans-serif;
+    }
+
+    padding-left: 2vw;
+   }
+  }
+ }
+
+ @media (max-width: 600px) {
+  padding: 10px;
+
+  .order-items {
+   li {
+    padding-left: 2vw;
+    cursor: pointer;
+    padding: 0 16px;
+    flex-direction: column;
+    align-items: flex-start;
+
+    img {
+     margin-bottom: 10px;
+     object-fit: cover;
+     object-position: center;
+    }
+   }
+  }
+ }
+}
+
+@keyframes fadeIn {
+ from {
+  opacity: 0;
+ }
+
+ to {
+  opacity: 1;
+ }
+}
+
+@keyframes textGradient {
+ 0% {
+  background-position: 0% 50%;
+ }
+
+ 50% {
+  background-position: 100% 50%;
+ }
+
+ 100% {
+  background-position: 0% 50%;
+ }
+}
+
+@keyframes spin {
+ from {
+  transform: rotate(0deg);
+ }
+
+ to {
+  transform: rotate(360deg);
+ }
+}

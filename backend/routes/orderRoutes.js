@@ -6,7 +6,8 @@ const { isAuthenticated, authorizeRoles } = require("../middlewares/isAuthentica
 
 router.route("/order/create").post(isAuthenticated, createOrders)
 router.route("/order/me").get(isAuthenticated, myOrder)
-router.route("/order/:id").get(isAuthenticated, getSingleOrder)
-router.route("/orders").get(isAuthenticated, getAllOrders)
+router.route("/order/:id").get(getSingleOrder)
+// router.route("/order/:id").get(isAuthenticated, getSingleOrder)
+router.route("/admin/orders").get(isAuthenticated, getAllOrders)
 router.route("/order/:id").put(isAuthenticated, updateOrders).delete(isAuthenticated, deleteOrders)
 module.exports = router

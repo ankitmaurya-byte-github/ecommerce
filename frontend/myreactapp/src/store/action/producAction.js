@@ -1,4 +1,4 @@
-import { ALL_PRODUCT_FAIL, ALL_PRODUCT_SUCCESS, ALL_PRODUCT_REQUEST, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, CLEAR_ERRORS, REMOVE_PRODUCT_DETAIL_SUCCESS } from "../constant/productConstants";
+import { ALL_PRODUCT_FAIL, ALL_PRODUCT_SUCCESS, ALL_PRODUCT_REQUEST, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, CLEAR_ERRORS, REMOVE_PRODUCT_DETAIL_SUCCESS, ADD_PRODUCT_DETAIL_REQUEST, ADD_PRODUCT_DETAIL_SUCCESS, ADD_PRODUCT_DETAIL_FAIL, ADMIN_PRODUCT_REQUEST, ADMIN_PRODUCT_SUCCESS, ADMIN_PRODUCT_FAIL, ADMIN_ORDERS_REQUEST, ADMIN_ORDERS_SUCCESS, ADMIN_ORDERS_FAIL, CREATE_PRODUCT_REQUEST, CREATE_PRODUCT_SUCCESS, CREATE_PRODUCT_FAIL } from "../constant/productConstants";
 import axios from 'axios'
 export const getProduct = (keyword = "", currentpage = 1, slideValue1 = [0, 2000], rating = 0, catogory = []) => async (dispatch) => {
 
@@ -40,6 +40,7 @@ export const getProductDetail = (id) => async (dispatch) => {
    payload: data
   })
  } catch (err) {
+  console.log("this is error loging");
   console.log(err);
   dispatch({
    type: PRODUCT_DETAIL_FAIL,
@@ -47,11 +48,70 @@ export const getProductDetail = (id) => async (dispatch) => {
   })
  }
 }
+export const getAdminProduct = () => async (dispatch) => {
+ try {
+  dispatch({
+   type: ADMIN_PRODUCT_REQUEST,
+  })
+  const { data } = await axios.get('/app/v1/admin/products')
+  dispatch({
+   type: ADMIN_PRODUCT_SUCCESS,
+   payload: data
+  })
+
+ } catch (err) {
+  console.log(err);
+  dispatch({
+   type: ADMIN_PRODUCT_FAIL,
+   payload: err
+  })
+ }
+
+}
+export const createProduct = () => async (dispatch) => {
+ try {
+  dispatch({
+   type: CREATE_PRODUCT_REQUEST,
+  })
+  const { data } = await axios.post("/app/v1//products/new", {
+   headers: {
+    "Content-Type": "multipart/form-data",
+   },
+  });
+  dispatch({
+   type: CREATE_PRODUCT_SUCCESS,
+   payload: data
+  })
+
+ } catch (err) {
+  console.log(err);
+  dispatch({
+   type: CREATE_PRODUCT_FAIL,
+   payload: err
+  })
+ }
+
+}
+
 export const clearProductDetail = () => async (dispatch) => {
  try {
   dispatch({ type: REMOVE_PRODUCT_DETAIL_SUCCESS });
  } catch (err) {
   console.log(err);
+ }
+}
+export const addNewReviewAction = (newReviewData) => async (dispatch) => {
+ try {
+  dispatch({ type: ADD_PRODUCT_DETAIL_REQUEST });
+  const { data } = await axios.put("/app/v1/product/review", newReviewData);
+  console.log(data);
+  dispatch({ type: ADD_PRODUCT_DETAIL_SUCCESS, payload: data });
+ } catch (err) {
+  console.log(err);
+  dispatch({
+   type: ADD_PRODUCT_DETAIL_FAIL,
+   payload: err
+  })
  }
 }
 export const clearError = () => (dispatch) => {

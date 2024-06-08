@@ -13,7 +13,7 @@ exports.createOrders = catchAsyncError(
 
   const order = await orderModel.create({
    shipingInfo,
-   orderItem,
+   orderItem: orderItem.map((item) => { return { ...item, Image: item.images[0].url } }),
    orderStatus,
    totalPrice,
    paidAt: Date.now(),
@@ -30,14 +30,16 @@ exports.createOrders = catchAsyncError(
 
 exports.getSingleOrder = catchAsyncError(
  async (req, res, next) => {
+  console.log(req.params);
   const order = await orderModel.find({ _id: req.params.id }).populate("user", "email name");
 
+  console.log(order);
   if (!order) {
    return next(new ErrorHandler(404, "no orders founded"))
   }
   res.status(200).json({
    success: true,
-   order
+   order: order[0]
   })
  }
 )
@@ -64,7 +66,7 @@ exports.getAllOrders = catchAsyncError(
   res.status(200).json({
    success: true,
    orders,
-   totalPrice
+   totalPrice,
   })
  }
 )

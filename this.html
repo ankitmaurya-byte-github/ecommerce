@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Enhanced Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .header, .footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        .header nav {
+            margin-top: 10px;
+        }
+        .header nav a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .header nav a:hover {
+            background-color: #007bff;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .post {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 300px;
+            flex: 1 1 calc(33.333% - 40px);
+            text-align: center;
+        }
+        .post:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .post h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        .post img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .post img:hover {
+            transform: scale(0.9);
+        }
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .carousel::-webkit-scrollbar {
+            display: none;
+        }
+        .carousel-item {
+            flex: 0 0 auto;
+            width: 300px;
+            margin-right: 20px;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+        .carousel-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .carousel-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .carousel-item h3 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        .svg-animation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            margin: 20px 0;
+        }
+        .svg-animation svg {
+            width: 100px;
+            height: 100px;
+            fill: #007bff;
+            animation: rotate 4s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+        .footer p { margin: 0; }
+        .footer .social-icons a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+        .footer .social-icons a:hover {
+            color: #007bff;
+        }
+        @media (max-width: 600px) {
+            .header nav a { display: block; margin: 10px 0; }
+            .footer { flex-direction: column; text-align: center; }
+            .post, .carousel-item { flex: 1 1 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1><i class="fas fa-blog"></i> My Enhanced Blog</h1>
+        <nav>
+            <a href="/home.html"><i class="fas fa-home"></i> Home</a>
+            <a href="#"><i class="fas fa-map-marked-alt"></i> Places</a>
+            <a href="#"><i class="fas fa-book"></i> Books</a>
+            <a href="#"><i class="fas fa-camera"></i> Photos</a>
+            <a href="#"><i class="fas fa-address-card"></i> About</a>
+        </nav>
+    </header>
+    <div class="container">
+        <article class="post">
+            <h2>Blog Post Title</h2>
+            <img src="https://picsum.photos/300/200?random=1" alt="Random image">
+            <p>This is a blog post. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. Donec scelerisque sollicitudin enim eu venenatis.</p>
+        </article>
+        <article class="post">
+            <h2>Another Blog Post Title</h2>
+            <img src="https://picsum.photos/300/200?random=2" alt="Random image">
+            <p>Here's another blog post. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+        </article>
+        <article class="post">
+            <h2>Yet Another Blog Post Title</h2>
+            <img src="https://picsum.photos/300/200?random=3" alt="Random image">
+            <p>This is yet another blog post. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+        </article>
+        <article class="post">
+            <h2>More Blog Posts</h2>
+            <img src="https://picsum.photos/300/200?random=4" alt="Random image">
+            <p>More content here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. Donec scelerisque sollicitudin enim eu venenatis.</p>
+        </article>
+        <article class="post">
+            <h2>Another Interesting Post</h2>
+            <img src="https://picsum.photos/300/200?random=5" alt="Random image">
+            <p>Another interesting post. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+        </article>
+        <!-- Add more posts to make the page longer -->
+        <article class="post">
+            <h2>Additional Blog Post</h2>
+            <img src="https://picsum.photos/300/200?random=6" alt="Random image">
+            <p>Additional content here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. Donec scelerisque sollicitudin enim eu venenatis.</p>
+        </article>
+        <article class="post">
+            <h2>Extra Blog Post</h2>
+            <img src="https://picsum.photos/300/200?random=7" alt="Random image">
+            <p>Extra content here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. Donec scelerisque sollicitudin enim eu venenatis.</p>
+        </article>
+        <article class="post">
+            <h2>More Content</h2>
+            <img src="https://picsum.photos/300/200?random=8" alt="Random image">
+            <p>More content here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros
+            <p>More content here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. Donec scelerisque sollicitudin enim eu venenatis.</p>
+        </article>
+        <article class="post">
+            <h2>Interesting Topics</h2>
+            <img src="https://picsum.photos/300/200?random=9" alt="Random image">
+            <p>Interesting topics to discuss. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+        </article>
+        <article class="post">
+            <h2>New Discoveries</h2>
+            <img src="https://picsum.photos/300/200?random=10" alt="Random image">
+            <p>Latest discoveries in various fields. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+        </article>
+        <article class="post">
+            <h2>Tech Innovations</h2>
+            <img src="https://picsum.photos/300/200?random=11" alt="Random image">
+            <p>Innovations in technology. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. Donec scelerisque sollicitudin enim eu venenatis.</p>
+        </article>
+        <article class="post">
+            <h2>Travel Diaries</h2>
+            <img src="https://picsum.photos/300/200?random=12" alt="Random image">
+            <p>Exciting travel stories. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+        </article>
+        <article class="post">
+            <h2>Health & Wellness</h2>
+            <img src="https://picsum.photos/300/200?random=13" alt="Random image">
+            <p>Tips on health and wellness. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+        </article>
+        <article class="post">
+            <h2>Cooking Recipes</h2>
+            <img src="https://picsum.photos/300/200?random=14" alt="Random image">
+            <p>Delicious cooking recipes. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. Donec scelerisque sollicitudin enim eu venenatis.</p>
+        </article>
+        <article class="post">
+            <h2>Book Reviews</h2>
+            <img src="https://picsum.photos/300/200?random=15" alt="Random image">
+            <p>Reviews of the latest books. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+        </article>
+        <article class="post">
+            <h2>Art & Culture</h2>
+            <img src="" alt="Random image">
+            <p>Exploring art and culture. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+        </article>
+        <article class="post">
+            <h2>Science Facts</h2>
+            <img src="https://picsum.photos/300/200?random=17" alt="Random image">
+            <p>Fascinating science facts. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. Donec scelerisque sollicitudin enim eu venenatis.</p>
+        </article>
+        <article class="post">
+            <h2>Fitness Tips</h2>
+            <img src="https://picsum.photos/300/200?random=18" alt="Random image">
+            <p>Stay fit with these tips. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+        </article>
+        <article class="post">
+            <h2>History Insights</h2>
+            <img src="https://picsum.photos/300/200?random=19" alt="Random image">
+            <p>Insights into history. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+        </article>
+        <article class="post">
+            <h2>Music Trends</h2>
+            <img src="https://picsum.photos/300/200?random=20" alt="Random image">
+            <p>Latest trends in music. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. Donec scelerisque sollicitudin enim eu venenatis.</p>
+        </article>
+    </div>
+    <div class="carousel">
+        <div class="carousel-item">
+            <h3>Carousel Item 1</h3>
+            <img src="https://picsum.photos/300/200?random=21" alt="Random image">
+            <p>Carousel content. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.</p>
+        </div>
+        <div class="carousel-item">
+            <h3>Carousel Item 2</h3>
+            <img src="https://picsum.photos/300/200?random=22" alt="Random image">
+            <p>More carousel content. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+        </div>
+        <div class="carousel-item">
+            <h3>Carousel Item 3</h3>
+            <img src="https://picsum.photos/300/200?random=23" alt="Random image">
+            <p>Even more carousel content. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="carousel-item">
+            <h3>Carousel Item 4</h3>
+            <img src="https://picsum.photos/300/200?random=24" alt="Random image">
+            <p>And another carousel item. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.</p>
+        </div>
+        <div class="carousel-item">
+            <h3>Carousel Item 5</h3>
+            <img src="https://picsum.photos/300/200?random=25" alt="Random image">
+            <p>More carousel items. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+        </div>
+    </div>
+    <div class="svg-animation">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" />
+        </svg>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 My Enhanced Blog <i class="fas fa-heart"></i></p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+</body>
+</html>
+

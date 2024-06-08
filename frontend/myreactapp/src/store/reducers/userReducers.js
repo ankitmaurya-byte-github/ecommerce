@@ -13,7 +13,10 @@ import {
  PASSWORD_RESET_FAIL,
  RESETTOKEN_VALIDITY_REQUEST,
  RESETTOKEN_VALIDITY_FAIL,
- RESETTOKEN_VALIDITY_SUCCESS
+ RESETTOKEN_VALIDITY_SUCCESS,
+ ALL_USER_REQUEST,
+ ALL_USER_SUCCESS,
+ ALL_USER_FAIL
 } from '../constant/userConst'
 
 function userReducers(state = { initialUserData: {} }, action) {
@@ -97,4 +100,26 @@ function profileReducer(state = { initialProfileData: {} }, action) {
    return state
  }
 }
-export { userReducers, profileReducer }
+function usersreducers(state = { allUser: [] }, action) {
+ switch (action.type) {
+  case ALL_USER_REQUEST:
+   return {
+    ...state,
+    loading: true,
+   }
+  case ALL_USER_SUCCESS:
+   return {
+    loading: false,
+    ...action.payload.data
+   }
+  case ALL_USER_FAIL:
+   return {
+    ...state,
+    loading: false
+   }
+
+  default:
+   return state
+ }
+}
+export { userReducers, usersreducers, profileReducer }

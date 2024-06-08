@@ -1,21 +1,23 @@
-.loader{
-    width: 100vw;
-    height:100vh;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    div{
-        height: 12vh;
-        width: 12vh;
-        border-bottom:6px solid black;
-        border-left:3px solid rgb(57, 4, 41);
-        border-radius: 50%;
-        animation: loaderanimate .8s linear infinite;
-    }
-    @keyframes loaderanimate {
-        to {
-            transform: rotateZ(-360deg);
-        }
-    }
+.loader {
+ width: 100vw;
+ height: 100vh;
+ background-color: white;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+
+ div {
+  height: 12vh;
+  width: 12vh;
+  border-bottom: 6px solid black;
+  border-left: 3px solid rgb(57, 4, 41);
+  border-radius: 50%;
+  animation: loaderanimate .8s linear infinite;
+ }
+
+ @keyframes loaderanimate {
+  to {
+   transform: rotateZ(-360deg);
+  }
+ }
 }

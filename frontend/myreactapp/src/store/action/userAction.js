@@ -16,6 +16,9 @@ import {
  RESETTOKEN_VALIDITY_SUCCESS,
  RESETTOKEN_VALIDITY_FAIL,
  REMOVE_PROFILE_DATA_SUCCESS,
+ ALL_USER_SUCCESS,
+ ALL_USER_REQUEST,
+ ALL_USER_FAIL,
 } from '../constant/userConst'
 // import multer from 'multer'
 export const loginUser = (userData) => async (dispatch) => {
@@ -150,5 +153,17 @@ export const sendResetPasswordLink = (email) => async (dispatch) => {
  } catch (error) {
   console.log(error);
   dispatch({ type: PASSWORD_RESET_FAIL, payload: error });
+ }
+};
+export const allUserAction = (email) => async (dispatch) => {
+ try {
+  dispatch({ type: ALL_USER_REQUEST });
+
+  const data = await axios.get(`/app/v1/users`);
+  dispatch({ type: ALL_USER_SUCCESS, payload: data });
+  console.log(data);
+ } catch (error) {
+  console.log(error);
+  dispatch({ type: ALL_USER_FAIL, payload: error });
  }
 };

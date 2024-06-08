@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react'
-import style from './auth.module.css'
+import style from './auth.module.scss'
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { loginUser, registerUser } from '../../store/action/userAction'
 import defaultAvatar from '../../images/avatar.png'
+import { useLocation } from 'react-router-dom'
 import { clearError } from '../../store/action/producAction';
 import { useAlert } from 'react-alert'
 import Loader from '../layout/loader/Loader'
@@ -13,6 +14,7 @@ function Auth() {
  const alert = useAlert()
  const [swipe, setSwipe] = useState("")
  const [navigateToHome, setNavigateToHome] = useState(false)
+ const location = useLocation()
  const { loading, error, isAuthenticated, email, name, role, avatar } = useSelector(state => state.userData)
  const [previewAvatar, setPreviewAvatar] = useState(defaultAvatar)
  const [image, setimage] = useState('../../images/avatar.png')
@@ -25,6 +27,10 @@ function Auth() {
     alert.error(error.message)
    }
    dispatch(clearError())
+  }
+  console.log(location.search);
+  if (location.search === "?redirect=shipping" && isAuthenticated) {
+   navigate('/shipping')
   }
   if (navigateToHome && isAuthenticated) {
    setNavigateToHome(false)

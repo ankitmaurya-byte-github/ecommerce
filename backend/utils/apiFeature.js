@@ -29,7 +29,6 @@ class apiFeature {
   return this
  }
  pagination(dataPerPage) {
-
   let skip = dataPerPage * ((this.query.page ? this.query.page : 1) - 1)
   this.product = this.product.limit(dataPerPage).skip(skip)
   return this
