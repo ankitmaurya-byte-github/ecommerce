@@ -98,12 +98,7 @@ const updateStock = async (productId, quantity) => {
 exports.deleteOrders = catchAsyncError(
  async (req, res, next) => {
   const order = await orderModel.findOne({ _id: req.params.id })
-  console.log(order);
-  if (!order) {
-   return next(new ErrorHandler(404, "no orders founded"))
-  }
   await order.remove()
-
   res.status(200).json({
    message: "order deleted",
    success: true

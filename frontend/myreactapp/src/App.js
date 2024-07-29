@@ -39,13 +39,9 @@ import Dashboard from './components/admin/dashboard/Dashboard.js';
 import AdminProducts from './components/admin/products/AdminProducts.js';
 import Adminorder from './components/admin/order/Adminorder..js';
 import CreateProduct from './components/admin/products/createProduct/CreateProduct.js';
-import { FaSearch } from 'react-icons/fa';
-import UpdateProduct from './components/admin/products/updateProduct/UpdateProduct.js';
-import AdminUsers from './components/admin/user/Adminusers.js';
 
 function App() {
  const alert = useAlert()
- const navigate = useNavigate()
  const user = useSelector((state) => state.userData);
  const { loading } = useSelector((state) => state.userData);
  const [stripeApiKey, setStripeApiKey] = useState()
@@ -65,7 +61,7 @@ function App() {
  useEffect(() => {
   webfont.load({
    google: {
-    families: ["Mono"],
+    families: ["Roboto"],
    },
   });
   dispatch(loadUser());
@@ -75,32 +71,6 @@ function App() {
   <>
    {loading !== undefined && !loading && <div>
     <Header />
-    <FaSearch
-     onClick={() => navigate('/search')}
-     size={30}
-     style={{
-      color: "#858585",
-      padding: "14px",
-      zIndex: 50,
-      background: "#d9a8b02e",
-      borderRadius: "50px",
-      position: "absolute",
-      // borderRadius: '50%',
-
-      right: "80px",
-      top: "16px",
-      transition: "transform 0.2s",
-      ":hover": {
-       cursor: "pointer",
-       padding: "14px",
-       fontSize: "40px",
-      },
-     }}
-    />
-
-
-
-
     <UserOption user={user} />
     <Routes>
      <Route path="/" element={<Home />} />
@@ -120,10 +90,8 @@ function App() {
      <Route path="admin/products" element={<AdminProducts />} />
      <Route path="admin/create/product" element={<CreateProduct />} />
      <Route path="admin/orders" element={<Adminorder />} />
-     <Route path="admin/users" element={<AdminUsers />} />
-     <Route path="admin/:id" element={<UpdateProduct />} />
      <Route path="/password/reset/" element={<ResetLink />} />
-     {stripeApiKey && <Route path="/payment" element={<Elements stripe={loadStripe(stripeApiKey)}><Payment /></Elements>} />}
+     {stripeApiKey && <Route path="/payment/" element={<Elements stripe={loadStripe(stripeApiKey)}><Payment /></Elements>} />}
      <Route path="/password/reset/:token" element={<ResetPassword />} />
      {user.isAuthenticated && (
       <Route path="/profile/me/update" element={<UpdateProfile />} />

@@ -51,7 +51,7 @@ export default function UserOption({ user }) {
   navigate('/cart')
  }
  function dashboard() {
-  navigate('/admin/dashboard')
+  navigate('/dashboard')
  }
  useEffect(() => {
   let action = [...actions]

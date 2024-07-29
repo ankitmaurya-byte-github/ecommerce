@@ -1,17 +1,10 @@
 .adminOrders {
 
-
  display: grid;
  overflow: hidden;
  margin: auto;
  height: 100vh;
  grid-template-columns: 1.3fr 5fr;
-
- @media (min-width: 1200px) {
-  grid-template-columns: 200px auto;
- }
-
-
  margin-top: 45px;
  padding: 0 10%;
 
@@ -20,43 +13,12 @@
   overflow-y: hidden;
  }
 
- .action {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-
-  a {
-   align-items: center;
-   display: flex;
-  }
- }
-
- .editbutton {
-  color: rgba(2, 192, 2, 0.625);
-
-  &:hover {
-   cursor: pointer;
-   color: green;
-  }
- }
-
- .deletebutton {
-  color: rgba(255, 0, 0, 0.629);
-
-  &:hover {
-   cursor: pointer;
-   color: rgb(171, 0, 0);
-   ;
-  }
- }
-
  .abchdf {
   --DataGrid-hasScrollY: 0 !important;
  }
 
  /* Corrected code */
  .css-yrdy0g-MuiDataGrid-columnHeaderRow {
-  border-radius: 0% 4% 0% 0% / 0% 38% 0% 0%;
   background-color: tomato !important;
  }
 }

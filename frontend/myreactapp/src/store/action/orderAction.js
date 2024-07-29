@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ORDERDETAIL_FAIL, ORDERDETAIL_REQUEST, ORDERDETAIL_SUCCESS, ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_DELETE_SUCCESS, ORDER_FAIL, ORDER_REQUEST, ORDER_SUCCESS } from "../constant/orderConstant";
+import { ORDERDETAIL_FAIL, ORDERDETAIL_REQUEST, ORDERDETAIL_SUCCESS, ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_FAIL, ORDER_REQUEST, ORDER_SUCCESS } from "../constant/orderConstant";
 import { ADMIN_ORDERS_FAIL, ADMIN_ORDERS_REQUEST, ADMIN_ORDERS_SUCCESS } from "../constant/productConstants";
 
 
@@ -13,22 +13,6 @@ export const orderAction = (orderData) => async (dispatch) => {
   dispatch({
    type: ORDER_CREATE_SUCCESS,
    payload: data,
-  })
- } catch (err) {
-  dispatch({ type: ORDER_CREATE_FAIL, payload: err });
- }
-
-}
-export const deleteOrder = (orderData) => async (dispatch) => {
- try {
-  dispatch({
-   type: ADMIN_ORDERS_REQUEST,
-  })
-  console.log(orderData);
-  await axios.delete(`/app/v1/order/${orderData}`)
-  dispatch({
-   type: ORDER_DELETE_SUCCESS,
-   payload: orderData,
   })
  } catch (err) {
   dispatch({ type: ORDER_CREATE_FAIL, payload: err });

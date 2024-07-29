@@ -1,4 +1,4 @@
-import { ALL_PRODUCT_FAIL, ALL_PRODUCT_SUCCESS, ALL_PRODUCT_REQUEST, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, CLEAR_ERRORS, REMOVE_PRODUCT_DETAIL_SUCCESS, ADD_PRODUCT_DETAIL_SUCCESS, ADD_PRODUCT_DETAIL_REQUEST, ADD_PRODUCT_DETAIL_FAIL, ADMIN_PRODUCT_FAIL, ADMIN_PRODUCT_SUCCESS, ADMIN_PRODUCT_REQUEST, CREATE_PRODUCT_REQUEST, CREATE_PRODUCT_SUCCESS, CREATE_PRODUCT_FAIL, DELETE_PRODUCT_SUCCESS } from "../constant/productConstants";
+import { ALL_PRODUCT_FAIL, ALL_PRODUCT_SUCCESS, ALL_PRODUCT_REQUEST, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, CLEAR_ERRORS, REMOVE_PRODUCT_DETAIL_SUCCESS, ADD_PRODUCT_DETAIL_SUCCESS, ADD_PRODUCT_DETAIL_REQUEST, ADD_PRODUCT_DETAIL_FAIL, ADMIN_PRODUCT_FAIL, ADMIN_PRODUCT_SUCCESS, ADMIN_PRODUCT_REQUEST, CREATE_PRODUCT_REQUEST, CREATE_PRODUCT_SUCCESS, CREATE_PRODUCT_FAIL } from "../constant/productConstants";
 function productReducers(state = { data: [] }, action) {
  switch (action.type) {
   case ALL_PRODUCT_REQUEST:
@@ -29,7 +29,7 @@ function productReducers(state = { data: [] }, action) {
    return state
  }
 }
-function adminProductReducers(state = { data: [] }, action) {
+function adminProductReducers(state = { products: [] }, action) {
  switch (action.type) {
   case ADMIN_PRODUCT_REQUEST:
    return {
@@ -41,13 +41,6 @@ function adminProductReducers(state = { data: [] }, action) {
     loading: false,
     ...action.payload
    }
-  case DELETE_PRODUCT_SUCCESS:
-
-   return {
-    loading: false,
-    success: action.payload.success,
-    data: state.data.filter((item) => item._id !== action.payload.id),
-   };
   case ADMIN_PRODUCT_FAIL:
    return {
     loading: false,
@@ -119,12 +112,12 @@ function newReviewReducers(state = {}, action) {
    return state
  }
 }
-function newProductReducers(state = { data: {} }, action) {
+function newProductReducers(state = {}, action) {
  switch (action.type) {
   case CREATE_PRODUCT_REQUEST:
    return {
-    ...state,
     loading: true,
+    rating: state.rating
    };
   case CREATE_PRODUCT_SUCCESS:
    return {

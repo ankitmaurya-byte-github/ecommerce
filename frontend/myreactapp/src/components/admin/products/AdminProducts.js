@@ -1,32 +1,25 @@
 import React, { useEffect } from "react";
 import './adminProducts.scss'
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, getAdminProduct } from "../../../store/action/producAction";
+import { getAdminProduct } from "../../../store/action/producAction";
 import LaunchIcon from "@mui/icons-material/Launch";
 import { DataGrid } from "@mui/x-data-grid";
 import MetaData from "../../home/MetaData";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import './adminProducts.scss'
 import { Sidebar } from "../dashboard/sidebar/Sidebar";
-import { RiDeleteBin5Line } from "react-icons/ri";
-import { FaEdit } from "react-icons/fa";
 const AdminProducts = () => {
  const dispatch = useDispatch()
- const navigate = useNavigate();
  const { data } = useSelector(state => state.adminProducts)
  useEffect(() => {
   dispatch(getAdminProduct())
  }, []);
- const handeldelete = (params) => {
-
-  dispatch(deleteProduct(params.row.id))
- }
  const column = [
-  { field: "id", headerName: "Order ID", flex: 0.25 },
+  { field: "id", headerName: "Order ID", flex: 0.3 },
   {
    field: "status",
    headerName: "Status",
-   flex: 0.13,
+   flex: 0.2,
   },
   {
    field: "orderQuantity",
@@ -44,14 +37,12 @@ const AdminProducts = () => {
    field: "action",
    headerName: "Action",
 
-   flex: 0.25,
+   flex: 0.2,
    sortable: false,
    renderCell: (params) => (
-    <div className="action">  <Link to={`/product/${params.id}`}>
-     View<LaunchIcon size={25} />
-    </Link><FaEdit className="editbutton" onClick={() => navigate(`/admin/${params.id}`)} size={25} /> <RiDeleteBin5Line onClick={() => handeldelete(params)} className="deletebutton" size={25} />
-    </div>
-
+    <Link to={`/product/${params.id}`}>
+     View Product <LaunchIcon />
+    </Link>
    ),
   },
  ];
@@ -71,7 +62,7 @@ const AdminProducts = () => {
  return <div className="adminProducts">
   <MetaData title={"admin products"} />
 
-  <div style={{ maxWidth: '200px' }}>
+  <div>
    <Sidebar />
   </div>
   <div className="maincontainer">

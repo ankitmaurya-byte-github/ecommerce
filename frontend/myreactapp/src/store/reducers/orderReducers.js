@@ -1,4 +1,4 @@
-import { ORDERDETAIL_FAIL, ORDERDETAIL_REQUEST, ORDERDETAIL_SUCCESS, ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_DELETE_SUCCESS, ORDER_FAIL, ORDER_REQUEST, ORDER_SUCCESS } from "../constant/orderConstant";
+import { ORDERDETAIL_FAIL, ORDERDETAIL_REQUEST, ORDERDETAIL_SUCCESS, ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_FAIL, ORDER_REQUEST, ORDER_SUCCESS } from "../constant/orderConstant";
 import { ADMIN_ORDERS_FAIL, ADMIN_ORDERS_REQUEST, ADMIN_ORDERS_SUCCESS, CLEAR_ERRORS } from "../constant/productConstants";
 
 export const ordersReducer = (state = {}, action) => {
@@ -33,12 +33,6 @@ export function adminOrderReducers(state = { data: [] }, action) {
    return {
     loading: true,
     ...state
-   };
-  case ORDER_DELETE_SUCCESS:
-   return {
-    loading: false,
-    success: true,
-    data: state.data.filter((order) => order._id !== action.payload),
    };
   case ADMIN_ORDERS_SUCCESS:
    return {
