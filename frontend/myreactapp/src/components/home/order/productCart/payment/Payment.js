@@ -43,12 +43,12 @@ const Payment = () => {
   setload(true);
   e.preventDefault();
   const paymentData = {
-   amount: 1000, // Amount in cents
+   amount: 10000, // Amount in cents
   };
   submitButtonRef.current.disabled = true;
   try {
    console.log("requesting");
-   const result = await axios.post('/app/v1/payment/process', { amount: 1000 });
+   const result = await axios.post('/app/v1/payment/process', { amount: 16000 });
    console.log(result);
    if (result.data.success) {
     const { client_secret } = result.data;

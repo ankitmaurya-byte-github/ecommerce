@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Sidebar } from "./sidebar/Sidebar";
 import './dashboard.scss'
@@ -40,6 +40,7 @@ const Dashboard = () => {
  const { data: orders } = useSelector(state => state.adminOrders)
  const { data: products } = useSelector(state => state.adminProducts)
  let instock = 0;
+ const [totalprice, settotalprice] = useState();
  const outstock = products?.reduce((acc, product) => {
   if (product.stock < 2) {
    return ++acc;
@@ -104,16 +105,22 @@ const Dashboard = () => {
   dispatch(getAdminOrders())
   dispatch(allUserAction())
  }, []);
-
+ useEffect(() => {
+  let sum = 0;
+  products?.forEach((product) => {
+   sum += product.price;
+  });
+  settotalprice(sum)
+ }, [products]);
  return (
   <div className="dashboard">
-   <div>
+   <div style={{ maxWidth: '200px' }}>
     <Sidebar />
    </div>
    <div className="mainContent">
     <Typography variant="h3">Dashboard</Typography>
     <div className="dashboardcontent">
-     <div className="total">total 5000rs</div>
+     <div className="total">total {totalprice}rs</div>
      <div className="dashboardbox">
       <Link to={"/admin/products"}>
        {products && <p>Product {products.length}</p>}

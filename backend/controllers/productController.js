@@ -18,36 +18,91 @@ const cloudinary = require('cloudinary');
 
 module.exports = {
  creatProduct: catchAsyncErroe(async (req, res) => {
-  // console.log(req.body);
   // req.body.user = req.user.id
-  console.log(req.body);
-  const images = []
-  req.body.images.forEach(async (image) => {
-   const mycloud = await cloudinary.uploader.upload(image,
-    {
-     folder: 'photo',
-     width: 150,
-     crop: 'scale'
-    });
-   if (!mycloud) {
-    console.log("lawde lag gaye");
-    return res.status(500).json({
-     message: "fail hogaya bhai"
-    })
-   }
-   images.push({
-    public_id: mycloud.public_id,
-    url: mycloud.secure_url,
-   })
-  });
-  console.log(req.user);
+  // console.log({ ...req.body })
+
+  const images = await Promise.all(
+   req.body.images.map(async (image, index) => {
+    console.log(index);
+    const mycloud = await cloudinary.uploader.upload(image);
+    console.log(index);
+
+
+    if (!mycloud) {
+     return res.status(500).json({
+      message: "fail hogaya bhai"
+     })
+    }
+
+
+    return {
+     public_id: mycloud.public_id,
+     url: mycloud.secure_url,
+    }
+   }));
+
+
+
+  console.log("images")
   const data = await productModel.create({ ...req.body, images, user: req.user.id })
+  console.log("images");
+
+
   if (!data) {
    return next(new ErrorHandler(404, "product failed to create"))
   }
+
   res.status(200).json({
    success: true,
    data
+  })
+ }),
+ updateProduct: catchAsyncErroe(async (req, res) => {
+
+  let data = await productModel.findById(req.params.id)
+  if (!data) {
+   return next(new ErrorHandler(404, "product not found"))
+  }
+
+  const images = await Promise.all(
+   req.body.images.map(async (image, index) => {
+    console.log(image);
+    const mycloud = await cloudinary.uploader.upload(image);
+    console.log(index);
+
+
+    if (!mycloud) {
+     return res.status(500).json({
+      message: "fail hogaya bhai"
+     })
+    }
+
+
+    return {
+     public_id: mycloud.public_id,
+     url: mycloud.secure_url,
+    }
+   }));
+  data = await productModel.findByIdAndUpdate(req.params.id, { ...req.body, images }, {
+   new: true,
+   runValidators: true,
+   useFindAndModify: false
+  });
+  res.status(200).json({
+   success: true,
+   data
+  })
+
+ }),
+ deleteProduct: catchAsyncErroe(async (req, res) => {
+  let data = await productModel.findById(req.params.id)
+  if (!data) {
+   return next(new ErrorHandler(404, "product not found"))
+  }
+  await data.remove()
+  res.status(200).json({
+   success: true,
+   message: "product removed successfully"
   })
  }),
  getAllProduct: catchAsyncErroe(async (req, res, next) => {
@@ -85,34 +140,7 @@ module.exports = {
    data,
   });
  }),
- updateProduct: catchAsyncErroe(async (req, res) => {
-  let data = await productModel.findById(req.params.id)
-  if (!data) {
-   return next(new ErrorHandler(404, "product not found"))
-  }
-  data = await data.findByIdAndUpdate(req.params.id, req.body, {
-   new: true,
-   useValidator: true,
-   useFindAndModify: false
-  });
 
-  res.status(200).json({
-   success: true,
-   data
-  })
-
- }),
- deleteProduct: catchAsyncErroe(async (req, res) => {
-  let data = await productModel.findById(req.params.id)
-  if (!data) {
-   return next(new ErrorHandler(404, "product not found"))
-  }
-  await data.remove()
-  res.status(200).json({
-   success: true,
-   message: "product removed successfully"
-  })
- }),
  productDetails: catchAsyncErroe(async (req, res, next) => {
   const data = await productModel.findById(req.params.id);
   console.log("Hdfhdfh");

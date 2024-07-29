@@ -10,6 +10,16 @@
  .mainbox {
   width: 100%;
 
+  .addDeleteIcon {
+   color: rgba(139, 119, 119, 0.862);
+
+   &:hover {
+    color: green;
+    scale: 1.2;
+    transition: ease 0.3s;
+   }
+  }
+
   .createProductForm {
    display: flex;
    flex-direction: column;

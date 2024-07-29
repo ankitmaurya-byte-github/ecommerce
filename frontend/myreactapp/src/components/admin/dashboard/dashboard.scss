@@ -1,6 +1,5 @@
 .dashboard {
  display: grid;
- overflow: hidden;
  margin: auto;
  min-height: 100vh;
  width: 84%;
@@ -9,6 +8,7 @@
 
  .mainContent {
   text-align: center;
+  overflow: hidden;
 
   .dashboardcontent {
    .total {

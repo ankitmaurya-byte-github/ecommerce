@@ -3,7 +3,6 @@ module.exports = (err, req, res, next) => {
  console.log(err);
  // err.statuscode = err.statuscode || 404
  console.log("this is rerr");
- console.log(err);
  err.message = err.message || "Invalid server err"
 
  if (err.name === "CastError") {

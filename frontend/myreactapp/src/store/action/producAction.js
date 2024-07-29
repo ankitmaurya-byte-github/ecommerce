@@ -1,4 +1,5 @@
-import { ALL_PRODUCT_FAIL, ALL_PRODUCT_SUCCESS, ALL_PRODUCT_REQUEST, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, CLEAR_ERRORS, REMOVE_PRODUCT_DETAIL_SUCCESS, ADD_PRODUCT_DETAIL_REQUEST, ADD_PRODUCT_DETAIL_SUCCESS, ADD_PRODUCT_DETAIL_FAIL, ADMIN_PRODUCT_REQUEST, ADMIN_PRODUCT_SUCCESS, ADMIN_PRODUCT_FAIL, ADMIN_ORDERS_REQUEST, ADMIN_ORDERS_SUCCESS, ADMIN_ORDERS_FAIL, CREATE_PRODUCT_REQUEST, CREATE_PRODUCT_SUCCESS, CREATE_PRODUCT_FAIL } from "../constant/productConstants";
+import { useParams } from "react-router-dom";
+import { ALL_PRODUCT_FAIL, ALL_PRODUCT_SUCCESS, ALL_PRODUCT_REQUEST, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, CLEAR_ERRORS, REMOVE_PRODUCT_DETAIL_SUCCESS, ADD_PRODUCT_DETAIL_REQUEST, ADD_PRODUCT_DETAIL_SUCCESS, ADD_PRODUCT_DETAIL_FAIL, ADMIN_PRODUCT_REQUEST, ADMIN_PRODUCT_SUCCESS, ADMIN_PRODUCT_FAIL, ADMIN_ORDERS_REQUEST, ADMIN_ORDERS_SUCCESS, ADMIN_ORDERS_FAIL, CREATE_PRODUCT_REQUEST, CREATE_PRODUCT_SUCCESS, CREATE_PRODUCT_FAIL, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, DELETE_PRODUCT_FAIL } from "../constant/productConstants";
 import axios from 'axios'
 export const getProduct = (keyword = "", currentpage = 1, slideValue1 = [0, 2000], rating = 0, catogory = []) => async (dispatch) => {
 
@@ -34,7 +35,7 @@ export const getProductDetail = (id) => async (dispatch) => {
   dispatch({
    type: PRODUCT_DETAIL_REQUEST,
   })
-  const { data } = await axios.get(`/app/v1/products/${id}`)
+  const { data } = await axios.get(`/app/v1/product/${id}`)
   dispatch({
    type: PRODUCT_DETAIL_SUCCESS,
    payload: data
@@ -54,6 +55,7 @@ export const getAdminProduct = () => async (dispatch) => {
    type: ADMIN_PRODUCT_REQUEST,
   })
   const { data } = await axios.get('/app/v1/admin/products')
+
   dispatch({
    type: ADMIN_PRODUCT_SUCCESS,
    payload: data
@@ -68,16 +70,20 @@ export const getAdminProduct = () => async (dispatch) => {
  }
 
 }
-export const createProduct = () => async (dispatch) => {
+export const createProduct = (formData) => async (dispatch) => {
  try {
   dispatch({
    type: CREATE_PRODUCT_REQUEST,
   })
-  const { data } = await axios.post("/app/v1//products/new", {
-   headers: {
-    "Content-Type": "multipart/form-data",
-   },
-  });
+  console.log("this is actuon");
+  const { data } = await axios.post("/app/v1/products/new", formData,
+   {
+    headers: {
+     "Content-Type": "multipart/form-data",
+    },
+   }
+  );
+  console.log("this is actuon emnd");
   dispatch({
    type: CREATE_PRODUCT_SUCCESS,
    payload: data
@@ -87,6 +93,57 @@ export const createProduct = () => async (dispatch) => {
   console.log(err);
   dispatch({
    type: CREATE_PRODUCT_FAIL,
+   payload: err
+  })
+ }
+
+}
+export const updateproduct = (updatedData) => async (dispatch) => {
+
+ try {
+  dispatch({
+   type: CREATE_PRODUCT_REQUEST,
+  })
+  console.log("this is actuon");
+  const { data } = await axios.put(`/app/v1/product/${updatedData.id}`, updatedData.formData,
+   {
+    headers: {
+     "Content-Type": "multipart/form-data",
+    },
+   }
+  );
+  console.log("this is actuon emnd");
+  dispatch({
+   type: CREATE_PRODUCT_SUCCESS,
+   payload: data
+  })
+
+ } catch (err) {
+  console.log(err);
+  dispatch({
+   type: CREATE_PRODUCT_FAIL,
+   payload: err
+  })
+ }
+
+}
+export const deleteProduct = (id) => async (dispatch) => {
+ try {
+  dispatch({
+   type: ADMIN_PRODUCT_REQUEST,
+  })
+  console.log("this is actuon");
+  const { data } = await axios.delete(`/app/v1/product/${id}`);
+  console.log("this is actuon emnd");
+  dispatch({
+   type: DELETE_PRODUCT_SUCCESS,
+   payload: { ...data, id }
+  })
+
+ } catch (err) {
+  console.log(err);
+  dispatch({
+   type: ADMIN_PRODUCT_FAIL,
    payload: err
   })
  }

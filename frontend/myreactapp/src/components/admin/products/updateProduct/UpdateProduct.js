@@ -1,28 +1,64 @@
 import React, { useEffect, useState } from "react";
 import MetaData from "../../../home/MetaData";
 import { Sidebar } from "../../dashboard/sidebar/Sidebar";
-import './createproduct.scss'
+import './updateproduct.scss'
 import { RiImageAddFill } from "react-icons/ri";
 import Carousel from "react-material-ui-carousel";
 import fallbackImage from '../fallback.png'
 import axios from "axios";
-import { createProduct } from "../../../../store/action/producAction";
+import { clearProductDetail, createProduct, getProductDetail, updateproduct } from "../../../../store/action/producAction";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../layout/loader/Loader2";
+import { useNavigate, useParams } from "react-router-dom";
 import { MdDeleteForever } from "react-icons/md";
-const CreateProduct = () => {
- const { loading } = useSelector(state => state.newProduct)
- const [name, setName] = React.useState("fgh");
+import { useAlert } from "react-alert";
+const UpdateProduct = () => {
+ const navigate = useNavigate();
+ const alert = useAlert();
+ const { loading: newpl } = useSelector(state => state.newProduct)
+ const { id } = useParams()
+ const { error, loading: pdl, product: data } = useSelector(state => state.productDetail)
+ let loading = newpl || pdl;
+ const [name, setName] = React.useState("");
  const [price, setPrice] = React.useState(0);
- const [description, setDescription] = React.useState("fgh");
- const [category, setCategory] = useState("fgh")
+ const [description, setDescription] = React.useState("");
+ const [category, setCategory] = useState("")
  const [productImages, setProductImages] = useState([])
  const dispatch = useDispatch()
 
+ useEffect(() => {
+  if (data.images) {
+   console.log("data", data);
+   setName(data.name);
+   setPrice(data.price);
+   setDescription(data.description);
+   setCategory(data.category);
+   let images = data.images.map((item) => item.url)
+   setProductImages(images);
+  }
+
+ }, [data])
+
+ useEffect(() => {
+  console.log("error");
+  if (error) {
+   alert.error("User not found");
+   navigate(-1);
+  }
+
+  console.log("product");
+  dispatch(getProductDetail(id))
+
+  return () => {
+   console.log("clearing product detail");
+   dispatch(clearProductDetail())
+  };
+
+ }, [error]);
  const handelImageAdd = (e) => {
   console.log(e.target.files);//yeh object hai
   const files = Array.from(e.target.files);
-  files.slice(0, 3)
+
   files.forEach((file) => {
    const reader = new FileReader();
    reader.onload = () => {
@@ -38,7 +74,6 @@ const CreateProduct = () => {
 
  const handelsubmit = async (e) => {
   e.preventDefault();
-  localStorage.clear()
 
   const formData = new FormData();
   formData.set("name", name);
@@ -48,7 +83,7 @@ const CreateProduct = () => {
   productImages.forEach((image) => {
    formData.append("images", image);
   });
-  dispatch(createProduct(formData))
+  dispatch(updateproduct({ formData, id }))
   // try {
   //  const { data } = await axios.post("/app/v1/products/new", formData, {
   //   headers: {
@@ -65,7 +100,7 @@ const CreateProduct = () => {
 
  return <div className="createProduct">
 
-  <MetaData title={"create products"} />
+  <MetaData title={"Update products"} />
   {loading && <Loader />}
   <div style={{ maxWidth: '200px' }}>
    <Sidebar />
@@ -73,13 +108,15 @@ const CreateProduct = () => {
   <div className="mainbox">
    <form encType="multipart/form-data" onSubmit={handelsubmit} className="createProductForm">
 
-    <h1>Create Product</h1>
+    <h1>Update Product</h1>
     <div className="productImages">
      {productImages.length === 0 ? <img src={fallbackImage} alt="" /> : <Carousel>
       {productImages.map((items, i) => {
        return <img key={i} src={items} alt="" />
       })}
      </Carousel>}
+
+
      <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
       <MdDeleteForever size={30} onClick={() => setProductImages([])} className="addDeleteIcon" />
       <label className="labelInput" htmlFor="productImages">
@@ -106,20 +143,19 @@ const CreateProduct = () => {
      <select
       required={true}
       onChange={(e) => setCategory(e.target.value)}
-      value={'bike'}
+
      >
-      <option value="car">car</option>
+      {/* <option value="">Select a category</option> */}
+      <option value="car">{category}</option>
       <option value="truck">truck</option>
       <option value="bike">bike</option>
       <option value="boat">boat</option>
-
-      {/* Add options for categories here */}
      </select>
     </div>
 
 
     <button type="submit">
-     Create
+     Update
     </button>
    </form>
 
@@ -127,4 +163,4 @@ const CreateProduct = () => {
  </div>;
 };
 
-export default CreateProduct;
+export default UpdateProduct;
