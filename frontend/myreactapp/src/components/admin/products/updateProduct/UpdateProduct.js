@@ -24,6 +24,7 @@ const UpdateProduct = () => {
  const [description, setDescription] = React.useState("");
  const [category, setCategory] = useState("")
  const [productImages, setProductImages] = useState([])
+ // const [productImages, setProductImages] = useState([])
  const dispatch = useDispatch()
 
  useEffect(() => {
@@ -75,14 +76,38 @@ const UpdateProduct = () => {
  const handelsubmit = async (e) => {
   e.preventDefault();
 
+  const convertUrlToFile = async (url, filename) => {
+   // Fetch the image data
+   const response = await fetch(url);
+   const blob = await response.blob();
+
+   // Create a File object from the Blob
+   return new File([blob], filename, { type: blob.type });
+  };
+
+  const convertUrlsToFiles = async (urls) => {
+   const filePromises = urls.map(async (url) => {
+    const filename = url.split('/')[2] // Extract filename from URL
+    return await convertUrlToFile(url, filename);
+   });
+
+   return Promise.all(filePromises);
+  };
   const formData = new FormData();
   formData.set("name", name);
   formData.set("price", price);
   formData.set("description", description);
   formData.set("category", category);
-  productImages.forEach((image) => {
-   formData.append("images", image);
+  productImages.forEach((file) => {
+   formData.append('images', file);
   });
+  // convertUrlsToFiles(productImages).then((fileArray) => {
+  //  const formData = new FormData();
+  //  fileArray.forEach((file) => {
+  //   formData.append('images', file);
+  //  });
+  //  console.log(productImages);
+  // })
   dispatch(updateproduct({ formData, id }))
   // try {
   //  const { data } = await axios.post("/app/v1/products/new", formData, {

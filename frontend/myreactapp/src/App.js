@@ -84,7 +84,7 @@ function App() {
       zIndex: 50,
       background: "#d9a8b02e",
       borderRadius: "50px",
-      position: "absolute",
+      position: "fixed",
       // borderRadius: '50%',
 
       right: "80px",
