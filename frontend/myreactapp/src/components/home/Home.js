@@ -30,6 +30,7 @@ function Home() {
    dispatch(clearError())
   }
   dispatch(getProduct())
+
  }, [dispatch, error, alert])
  console.log(products);
 

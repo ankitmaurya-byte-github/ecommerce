@@ -32,8 +32,7 @@ function Auth() {
   if (location.search === "?redirect=shipping" && isAuthenticated) {
    navigate('/shipping')
   }
-  console.log(navigateToHome);
-  console.log(isAuthenticated);
+
   if (isAuthenticated) {
    setNavigateToHome(false)
    console.log("fghfghf");
