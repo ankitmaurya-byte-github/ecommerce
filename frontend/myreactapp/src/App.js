@@ -47,7 +47,7 @@ function App() {
  const [stripeApiKey, setStripeApiKey] = useState()
  async function getStripeApiKey() {
   try {
-   const { data } = await axios.get('app/v1/getApiKey')
+   const { data } = await axios.get('/app/v1/getApiKey')
    setStripeApiKey(data.stripeApiKey)
   }
   catch (err) {
@@ -71,6 +71,35 @@ function App() {
   <>
    {loading !== undefined && !loading && <div>
     <Header />
+<<<<<<< HEAD
+=======
+    <FaSearch
+     onClick={() => navigate('/search')}
+     size={30}
+     style={{
+      color: "#858585",
+      padding: "14px",
+      zIndex: 50,
+      background: "#d9a8b02e",
+      borderRadius: "50px",
+      position: "fixed",
+      // borderRadius: '50%',
+
+      right: "80px",
+      top: "16px",
+      transition: "transform 0.2s",
+      ":hover": {
+       cursor: "pointer",
+       padding: "14px",
+       fontSize: "40px",
+      },
+     }}
+    />
+
+
+
+
+>>>>>>> final
     <UserOption user={user} />
     <Routes>
      <Route path="/" element={<Home />} />

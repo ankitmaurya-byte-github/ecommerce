@@ -71,7 +71,7 @@ const Dashboard = () => {
   labels: ["instock", "outOfStock"],
   datasets: [
    {
-    label: "instock",
+    label: "stock",
     data: [instock, outstock],
     borderColor: "rgb(255, 99, 132)",
     backgroundColor: ["rgba(4, 255, 37, 0.5)", "rgba(0, 38, 255, 0.5)"],

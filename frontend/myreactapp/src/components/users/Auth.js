@@ -28,22 +28,23 @@ function Auth() {
    }
    dispatch(clearError())
   }
-  console.log(location.search);
+
   if (location.search === "?redirect=shipping" && isAuthenticated) {
    navigate('/shipping')
   }
-  if (navigateToHome && isAuthenticated) {
+
+  if (isAuthenticated) {
    setNavigateToHome(false)
    console.log("fghfghf");
    navigate('/')
   }
 
- }, [dispatch, navigateToHome, error, alert, email, navigate])
+ }, [dispatch, navigateToHome, isAuthenticated, error, alert, email, navigate])
 
  const handleSinIn = () => {
-  console.log(userData);
+
+  // setNavigateToHome(true)
   dispatch(loginUser(userData))
-  setNavigateToHome(true)
 
  }
  const handleSinUp = () => {
@@ -80,6 +81,7 @@ function Auth() {
   <div className={style.auth}>
    {loading ? <Loader /> :
     <div className={`${style.container} ${swipe === "sinup" ? style.rightpanelactive : ""}`} id="container">
+
      <div className={`${style.formcontainer} ${style.signupcontainer}`}>
       <form action="#">
        <h1>Create Account</h1>
@@ -105,6 +107,8 @@ function Auth() {
        <button className={style.button} onClick={handleSinIn}>Sign In</button>
       </form>
      </div>
+
+
      <div className={style.overlaycontainer}>
       <div className={style.overlay}>
        <div className={`${style.overlaypanel} ${style.overlayleft}`}>

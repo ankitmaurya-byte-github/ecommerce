@@ -15,9 +15,10 @@ function productReducers(state = { data: [] }, action) {
     filterProductCount: action.payload.filterProductCount
    }
   case ALL_PRODUCT_FAIL:
+
    return {
     loading: false,
-    error: action.payload
+    error: { message: "yeh mera error hai " }
    }
   case CLEAR_ERRORS:
    return {
